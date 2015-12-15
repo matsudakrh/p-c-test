@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="ja" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS directive demo</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="todo.js"></script>
+</head>
+<body>
+
+<div ng-controller="MainCtrl">
+  <h3>親スコープ</h3>
+  <div><input ng-model="text"> {{text}}</div>
+
+  <h3>ディレクティブスコープ</h3>
+  <my-text-box></my-text-box>
+  <my-text-box></my-text-box>
+  <my-text-box></my-text-box>
+</div>
+
+<script>
+  var app = angular.module('myApp', []);
+
+  app.directive('myTextBox', function() {
+
+
+
+    return {
+      restrict: 'E',
+      scope: true,
+      template: '<div><input ng-model="text"> {{text}}</div>'
+    };
+  });
+
+  app.controller('MainCtrl', function($scope) {
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ja" ng-app="ToDo">
+<head>
+  <meta charset="UTF-8">
+  <title>todo</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+  <script src="script.js"></script>
+</head>
+<body>
+
+<div ng-controller="TodoController as vm">
+  <form ng-submit="vm.create()">
+    <input type="text" ng-model="vm.newTodo.title" placeholder="ToDo名を入力">
+    <input type="submit" type="button" value="新規作成">
+  </form>
+  <ul>
+    <li ng-repeat="todo in vm.todos track by $index">
+      <span>{{todo.title}}</span>
+      <input type="checkbox" ng-model="todo.done">
+    </li>
+  </ul>
+
+</div>
+</body>
+</html>
