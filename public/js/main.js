@@ -1,6 +1,5 @@
-
-
-angular.module('SvgApp',[]).controller('SvgController', function ($scope) {
+var app = angular.module('SvgApp',[]);
+    app.controller('SvgController', function () {
 
     var self = this;
     var svgWidth = 514;
@@ -17,12 +16,11 @@ angular.module('SvgApp',[]).controller('SvgController', function ($scope) {
 
     self.circleList = [];
 
-    //var num = 0;
 
     self.createCircle = function () {
 
         self.circleList.push({
-            circleR: 60,
+            circleR: 20,
             circleCx: 0,
             circleCy: 0,
             circleBC: "#000000",
