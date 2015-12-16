@@ -9,13 +9,13 @@ html(lang="ja", ng-app='SvgApp')
 		link(rel="stylesheet", href="./css/index.css")
 		script(src="./js/snap.svg-min.js")
 		script(src="./js/angular.min.js")
-		script(src="./js/main.js")
 		script(src="./js/jquery-1.11.3.min.js")
+		//script(src = "./js/main.js")
 		script(src="./js/materialize.js")
 	body
 		header
 			.container
-				h1 Snap.svg
+				h1 Snap.svgz
 		main(ng-controller="SvgController as svgC")
 			.container.clearfix.row
 				.col.s6
@@ -36,7 +36,7 @@ html(lang="ja", ng-app='SvgApp')
 								li.row.col.s12(ng-repeat="circleP in svgC.circleList track by $index")
 									form
 										.col.s3
-											label 半径
+											label 半径(){{$index}}
 											input(type="number", ng-model="circleP.circleR")
 										.col.s3
 											label 色
@@ -55,22 +55,23 @@ html(lang="ja", ng-app='SvgApp')
 							ol.row.col.s12
 								li.row.col.s12
 									form
-										.input-field.col.s3
+										.col.s3
 											label 横サイズ
 											input(type="number")
-										.input-field.col.s3
+										.col.s3
 											label 縦サイズ
 											input(type="number")
-										.input-field.col.s3
+										.col.s3
 											label 横位置
 											input(type="number")
-										.input-field.col.s3
+										.col.s3
 											label 縦位置
 											input(type="number")
-										.input-field.col.s3
+										.col.s3
 											label 色
 											input(type="text")
 						#starForm.col.s12
 						#textForm.col.s12
 				.col.s6
 					#svgContainer
+						svg#svgBox

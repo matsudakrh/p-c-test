@@ -1,101 +1,55 @@
-var app = angular.module('MainApp', []);
 
 
-    app.directive('circleDirective', function () {
-        var circleProperty = {
-            r: 40,
-            cx: 0,
-            cy: 0,
-            circleC: '#000000',
-            circleBorderC: '#000000',
-            circleBorderW: 0,
-            circleOpacity: 1
-        };
-        function createCircle() {
-            s.circle().attr({
-                r: circleProperty.r,
-                cx: circleProperty.cx,
-                cy: circleProperty.cy,
-                fill: circleProperty.circleC,
-                stroke: circleProperty.circleBorderC,
-                strokeWidth: circleProperty.circleBorderW,
-                opacity: circleProperty.circleOpacity
-            }).drag();
-        }
+angular.module('SvgApp',[]).controller('SvgController', function ($scope) {
 
-        return {
-            restrict: 'A',
-            scope: {}
-        };
-    });
-
-    app.controller('MainController', function($scope) {
-
-    var svgfWidth = 514;
+    var self = this;
+    var svgWidth = 514;
     var svgHeight = 726;
 
-    var circleProperty = {
-        r: 40,
-        cx: 0,
-        cy: 0,
-        circleC: '#000000',
-        circleBorderC: '#000000',
-        circleBorderW: 0,
-        circleOpacity: 1
-    };
-
-    var rectProperty = {
-        rectX: 0,
-        rectY: 0,
-        rectW: 180,
-        rectH: 120,
-        rectColor: '#000000',
-        rectBorderC: '#000000'
-    };
-
-    $scope.rectList = [];
-    $scope.circleList = [];
 
 
-    var s = Snap(svgfWidth, svgHeight).attr({
-        viewBox: "0, 0, " + svgfWidth + ", " + svgHeight,
-        id: "svgBox"
+    var svgBox = Snap('#svgBox').attr({
+        width: svgWidth,
+        height: svgHeight,
+        viewBox: '0,0,' + svgWidth + ',' + svgHeight
     });
 
 
+    self.circleList = [];
 
-    function createCircle() {
-            s.circle().attr({
-                r: circleProperty.r,
-                cx: circleProperty.cx,
-                cy: circleProperty.cy,
-                fill: circleProperty.circleC,
-                stroke: circleProperty.circleBorderC,
-                strokeWidth: circleProperty.circleBorderW,
-                opacity: circleProperty.circleOpacity,
-                id: "circle" + $scope.circleList.length
-            }).drag();
-        $scope.circleList.push(circleProperty);
+    //var num = 0;
 
-    }
+    self.createCircle = function () {
+
+        self.circleList.push({
+            circleR: 60,
+            circleCx: 0,
+            circleCy: 0,
+            circleBC: "#000000",
+            circleBW: 10,
+            circleFill: "#000000",
+            circleOpacity: 1
+        });
+
+        self.circles = svgBox.circle()
+            .attr({
+                r: self.circleList[self.circleList.length - 1].circleR,
+                cx: self.circleList[self.circleList.length - 1].circleCx,
+                cy: self.circleList[self.circleList.length - 1].circleCy,
+                fill: self.circleList[self.circleList.length - 1].circleFill,
+                stroke: self.circleList[self.circleList.length - 1].circleBC,
+                strokeWidth: self.circleList[self.circleList.length - 1].circleBW,
+                opacity: self.circleList[self.circleList.length - 1].circleOpacity
+            })
+            .drag();
 
 
 
-    function createRect() {
-            s.rect().attr({
-                width: 100,
-                height: 100,
-                x: 0,
-                y: 0
-            }).drag();
-        $scope.rectList.push(rectProperty);
-    }
 
-    $scope.createCircle = createCircle;
-    $scope.createRect = createRect;
+    };
 
-    var svgContainer = document.querySelector('#svgContainer');
 
-    s.prependTo(svgContainer);
+
 
 });
+
