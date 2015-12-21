@@ -47,7 +47,6 @@ var app = angular.module('SvgApp',[]);
     };
 
 
-
-
 });
+
 
