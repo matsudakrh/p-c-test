@@ -1,6 +1,5 @@
-
-
-angular.module('SvgApp',[]).controller('SvgController', function ($scope) {
+var app = angular.module('SvgApp',[]);
+    app.controller('SvgController', function () {
 
     var self = this;
     var svgWidth = 514;
@@ -8,54 +7,46 @@ angular.module('SvgApp',[]).controller('SvgController', function ($scope) {
 
 
 
-    var svgBox = Snap( svgWidth, svgHeight ).attr({
+    var svgBox = Snap('#svgBox').attr({
+        width: svgWidth,
+        height: svgHeight,
         viewBox: '0,0,' + svgWidth + ',' + svgHeight
     });
 
 
-
-
-    var circleP = {
-        circleR: 30,
-        circleCx: 0,
-        circleCy: 0,
-        circleBC: "#000000",
-        circleBW: 10,
-        circleFill: "#000000",
-        circleOpacity: 1
-    };
-
-
     self.circleList = [];
 
-    //var num = 0;
 
     self.createCircle = function () {
 
-        self.circleList.push(circleP);
+        self.circleList.push({
+            circleR: 20,
+            circleCx: 0,
+            circleCy: 0,
+            circleBC: "#000000",
+            circleBW: 10,
+            circleFill: "#000000",
+            circleOpacity: 1
+        });
 
-        var circles = svgBox.circle()
+        self.circles = svgBox.circle()
             .attr({
-                r: circleP.circleR,
-                cx: circleP.circleCx,
-                cy: circleP.circleCy,
-                fill: circleP.circleFill,
-                stroke: circleP.circleBC,
-                strokeWidth: circleP.circleBW,
-                opacity: circleP.circleOpacity,
-                id: "circle" + self.circleList.length
+                r: self.circleList[self.circleList.length - 1].circleR,
+                cx: self.circleList[self.circleList.length - 1].circleCx,
+                cy: self.circleList[self.circleList.length - 1].circleCy,
+                fill: self.circleList[self.circleList.length - 1].circleFill,
+                stroke: self.circleList[self.circleList.length - 1].circleBC,
+                strokeWidth: self.circleList[self.circleList.length - 1].circleBW,
+                opacity: self.circleList[self.circleList.length - 1].circleOpacity
             })
             .drag();
+
+
+
 
     };
 
 
-
-
-    var svgCon = document.querySelector('#svgContainer');
-
-
-    svgBox.prependTo(svgCon);
-
-
 });
+
+
