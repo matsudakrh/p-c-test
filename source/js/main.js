@@ -52,27 +52,22 @@ var app = angular.module('SvgApp',[]);
 
 
 
-    document.onkeypress = function () {
-
-        function circleAttrReplace() {
-
-
-            for (var i = 0; i < self.circleList.length; i++) {
-                var targetCircle = Snap('#circle' + i);
+        self.circleAttrReplace = function (num) {
+            var timer = setTimeout(function(){
+                var targetCircle = Snap('#circle' + num);
                 targetCircle.attr({
-                    r: self.circleList[i].circleR,
-                    fill: self.circleList[i].circleFill,
-                    stroke: self.circleList[i].circleBC,
-                    strokeWidth: self.circleList[i].circleBW,
-                    opacity: self.circleList[i].circleOpacity
-                });
-            }
-        }
-
-        var timer = setTimeout(circleAttrReplace, 200);
+                    r: self.circleList[num].circleR,
+                    fill: self.circleList[num].circleFill,
+                    stroke: self.circleList[num].circleBC,
+                    strokeWidth: self.circleList[num].circleBW,
+                    opacity: self.circleList[num].circleOpacity
+                }, 200);
+            });
+        };
 
 
-    };
+
+
 
 
 });

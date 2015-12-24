@@ -38,23 +38,23 @@
                   <form>
                     <div class="col s3">
                       <label>半径(){{$index}}</label>
-                      <input type="number" ng-model="circleP.circleR">
+                      <input type="number" ng-model="circleP.circleR" ng-change="svgC.circleAttrReplace($index)">
                     </div>
                     <div class="col s3">
                       <label>色</label>
-                      <input type="text" ng-model="circleP.circleFill">
+                      <input type="text" ng-model="circleP.circleFill" ng-change="svgC.circleAttrReplace($index)">
                     </div>
                     <div class="col s3">
                       <label>線の色</label>
-                      <input type="text" ng-model="circleP.circleBC">
+                      <input type="text" ng-model="circleP.circleBC" ng-change="svgC.circleAttrReplace($index)">
                     </div>
                     <div class="col s3">
                       <label>線の太さ</label>
-                      <input type="number" ng-model="circleP.circleBW">
+                      <input type="number" ng-model="circleP.circleBW" ng-change="svgC.circleAttrReplace($index)">
                     </div>
                     <div class="col s3">
                       <label>不透明度</label>
-                      <input type="number" max="1" min="0" step="0.1" ng-model="circleP.circleOpacity">
+                      <input type="number" max="1" min="0" step="0.1" ng-model="circleP.circleOpacity" ng-change="svgC.circleAttrReplace($index)">
                     </div>
                   </form>
                 </li>
@@ -91,25 +91,24 @@
             </div>
             <div id="starForm" class="col s12"></div>
             <div id="textForm" class="col s12">
-              <button type="button" class="btn">テキストを追加
-                <ol class="row col s12"></ol>
-                <li class="row col s12">
-                  <form>
-                    <div class="col s3">
-                      <label>文字サイズ</label>
-                      <input type="number">
-                    </div>
-                    <div class="col s3">
-                      <label>文字色</label>
-                      <input type="number">
-                    </div>
-                    <div class="col s3">
-                      <label>色</label>
-                      <input type="text">
-                    </div>
-                  </form>
-                </li>
-              </button>
+              <button type="button" class="btn">テキストを追加</button>
+              <ol class="row col s12"></ol>
+              <li class="row col s12">
+                <form>
+                  <div class="col s3">
+                    <label>文字サイズ</label>
+                    <input type="number">
+                  </div>
+                  <div class="col s3">
+                    <label>文字色</label>
+                    <input type="number">
+                  </div>
+                  <div class="col s3">
+                    <label>色</label>
+                    <input type="text">
+                  </div>
+                </form>
+              </li>
             </div>
           </div>
         </div>
