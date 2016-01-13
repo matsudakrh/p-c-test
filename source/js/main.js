@@ -53,8 +53,8 @@ app.controller('SvgController', function () {
 
     self.circleAttrReplace = function (num) {
         var timer = setTimeout(function(){
-            var targetCircle = Snap('#circle' + num);
-            targetCircle.attr({
+            var targetCircle = svgBox.selectAll('circle');
+            targetCircle[num].attr({
                 r: self.circleList[num].circleR,
                 fill: self.circleList[num].circleFill,
                 stroke: self.circleList[num].circleBC,
@@ -66,8 +66,8 @@ app.controller('SvgController', function () {
 
     self.circleDelete = function (num) {
         self.circleList.splice(num, 1);
-        var targetCircle = Snap('#circle' + num);
-        targetCircle.remove();
+        var targetCircle = svgBox.selectAll('circle');
+        targetCircle[num].remove();
     };
 
 
@@ -107,8 +107,8 @@ app.controller('SvgController', function () {
 
     self.rectAttrReplace = function (num) {
         var timer = setTimeout(function(){
-            var targetRect = Snap('#rect' + num);
-            targetRect.attr({
+            var targetRect = svgBox.selectAll('rect');
+            targetRect[num].attr({
                 width: self.rectList[num].rectW,
                 height: self.rectList[num].rectH,
                 fill: self.rectList[num].rectFill,
@@ -121,8 +121,8 @@ app.controller('SvgController', function () {
 
     self.rectDelete = function (num) {
         self.rectList.splice(num, 1);
-        var targetCircle = Snap('#rect' + num);
-        targetCircle.remove();
+        var targetRect = svgBox.selectAll('rect');
+        targetRect[num].remove();
     };
 
 
@@ -144,6 +144,7 @@ app.controller('SvgController', function () {
                 fill: self.starList[self.starList.length - 1].starC,
                 opacity: self.starList[self.starList.length - 1].starOpacity,
                 textAnchor: 'middle',
+                class: 'starSvg',
                 id: 'star' + (self.starList.length - 1)
             })
             .drag();
@@ -154,8 +155,8 @@ app.controller('SvgController', function () {
     self.starAttrReplace = function (num) {
 
         var timer = setTimeout( function () {
-            var targetStar = Snap('#star' + num);
-            targetStar.attr({
+            var targetStar = svgBox.selectAll('.starSvg');
+            targetStar[num].attr({
                 fontSize: self.starList[num].fontSize + 'px',
                 fill: self.starList[num].starC,
                 opacity: self.starList[num].starOpacity
@@ -166,8 +167,8 @@ app.controller('SvgController', function () {
 
     self.starDelete = function (num) {
         self.starList.splice(num, 1);
-        var targetCircle = Snap('#star' + num);
-        targetCircle.remove();
+        var targetStar = svgBox.selectAll('.starSvg');
+        targetStar[num].remove();
     };
 
 
@@ -188,6 +189,7 @@ app.controller('SvgController', function () {
                 fontSize: self.textList[self.textList.length - 1].fontSize,
                 opacity: self.textList[self.textList.length - 1].textOpacity,
                 textAnchor: 'middle',
+                class: 'plainText',
                 id: 'text' + (self.textList.length - 1)
             })
             .drag();
@@ -199,25 +201,24 @@ app.controller('SvgController', function () {
         var timer = setTimeout( function () {
 
 
-            var setText = document.getElementById('text' + num);
-            setText.innerHTML = self.textList[num].valText;
+            var setText = document.getElementsByClassName('plainText');
+            setText[num].innerHTML = self.textList[num].valText;
 
-            var targetText = Snap('#text' + num);
+            var targetText = svgBox.selectAll('.plainText');
 
-            targetText.attr({
+            targetText[num].attr({
                 fontSize: self.textList[num].fontSize + 'px',
                 fill: self.textList[num].fontC,
                 opacity: self.textList[num].textOpacity
             });
-
 
         }, 200);
     };
 
     self.textDelete = function (num) {
         self.textList.splice(num, 1);
-        var targetCircle = Snap('#text' + num);
-        targetCircle.remove();
+        var targetText = svgBox.selectAll('.plainText');
+        targetText[num].remove();
     };
 
 
