@@ -7,9 +7,12 @@ app.controller('SvgController', function () {
     var centerX = svgWidth / 2;
     var centerY = svgHeight / 2;
     var svgId = 'svgBox';
+    var targetCircles, targetRects, targetStars, targetTexts, setTexts;
     var svgContainer = document.getElementById('svgContainer');
     var resultSpace = document.getElementById('resultArea');
     var resultCode;
+    var forms = document.getElementsByClassName('tab-target');
+
 
     var svgBox = Snap('#' + svgId).attr({
         width: svgWidth,
@@ -42,6 +45,7 @@ app.controller('SvgController', function () {
                 stroke: self.circleList[self.circleList.length - 1].circleBC,
                 strokeWidth: self.circleList[self.circleList.length - 1].circleBW,
                 opacity: self.circleList[self.circleList.length - 1].circleOpacity,
+                class: 'circleSvg',
                 id: "circle" + (self.circleList.length - 1)
             })
             .drag();
@@ -53,8 +57,8 @@ app.controller('SvgController', function () {
 
     self.circleAttrReplace = function (num) {
         var timer = setTimeout(function(){
-            var targetCircle = svgBox.selectAll('circle');
-            targetCircle[num].attr({
+            targetCircles = svgBox.selectAll('.circleSvg');
+            targetCircles[num].attr({
                 r: self.circleList[num].circleR,
                 fill: self.circleList[num].circleFill,
                 stroke: self.circleList[num].circleBC,
@@ -66,8 +70,8 @@ app.controller('SvgController', function () {
 
     self.circleDelete = function (num) {
         self.circleList.splice(num, 1);
-        var targetCircle = svgBox.selectAll('circle');
-        targetCircle[num].remove();
+        targetCircles = svgBox.selectAll('.circleSvg');
+        targetCircles[num].remove();
     };
 
 
@@ -97,6 +101,7 @@ app.controller('SvgController', function () {
                 stroke: self.rectList[self.rectList.length - 1].rectBC,
                 strokeWidth: self.rectList[self.rectList.length - 1].rectBW,
                 opacity: self.rectList[self.rectList.length - 1].rectOpacity,
+                class: 'rectSvg',
                 id: "rect" + (self.rectList.length - 1)
             })
             .drag();
@@ -104,11 +109,12 @@ app.controller('SvgController', function () {
 
     };
 
-
     self.rectAttrReplace = function (num) {
+
         var timer = setTimeout(function(){
-            var targetRect = svgBox.selectAll('rect');
-            targetRect[num].attr({
+
+            targetRects = svgBox.selectAll('.rectSvg');
+            targetRects[num].attr({
                 width: self.rectList[num].rectW,
                 height: self.rectList[num].rectH,
                 fill: self.rectList[num].rectFill,
@@ -116,26 +122,28 @@ app.controller('SvgController', function () {
                 strokeWidth: self.rectList[num].rectBW,
                 opacity: self.rectList[num].rectOpacity
             });
+
         }, 200);
+
     };
 
     self.rectDelete = function (num) {
+
         self.rectList.splice(num, 1);
-        var targetRect = svgBox.selectAll('rect');
-        targetRect[num].remove();
+        targetRects = svgBox.selectAll('.rectSvg');
+        targetRects[num].remove();
+
     };
-
-
 
 
     self.starList = [];
 
     self.createStar = function () {
+
         self.starList.push({
             fontSize: 60,
             starC: '#000000',
             starOpacity: 1
-            //starDegr: 0
         });
 
         self.stars = svgBox.text(centerX, centerY, '★')
@@ -148,15 +156,13 @@ app.controller('SvgController', function () {
                 id: 'star' + (self.starList.length - 1)
             })
             .drag();
-
-
     };
 
     self.starAttrReplace = function (num) {
 
         var timer = setTimeout( function () {
-            var targetStar = svgBox.selectAll('.starSvg');
-            targetStar[num].attr({
+            targetStars = svgBox.selectAll('.starSvg');
+            targetStars[num].attr({
                 fontSize: self.starList[num].fontSize + 'px',
                 fill: self.starList[num].starC,
                 opacity: self.starList[num].starOpacity
@@ -167,8 +173,8 @@ app.controller('SvgController', function () {
 
     self.starDelete = function (num) {
         self.starList.splice(num, 1);
-        var targetStar = svgBox.selectAll('.starSvg');
-        targetStar[num].remove();
+        targetStars = svgBox.selectAll('.starSvg');
+        targetStars[num].remove();
     };
 
 
@@ -196,35 +202,52 @@ app.controller('SvgController', function () {
 
     };
 
+
+
+    function escapeHtml(str) {
+
+        str = str.replace(/&/g, '&amp;');
+        str = str.replace(/</g, '&lt;');
+        str = str.replace(/>/g, '&gt;');
+        str = str.replace(/"/g, '&quot;');
+        str = str.replace(/'/g, '&#39;');
+        return str;
+
+    }
+
     self.textAttrReplace = function (num) {
 
         var timer = setTimeout( function () {
 
+            setTexts = document.getElementsByClassName('plainText');
+            setTexts[num].innerHTML = escapeHtml(self.textList[num].valText);
 
-            var setText = document.getElementsByClassName('plainText');
-            setText[num].innerHTML = self.textList[num].valText;
+            targetTexts = svgBox.selectAll('.plainText');
 
-            var targetText = svgBox.selectAll('.plainText');
-
-            targetText[num].attr({
+            targetTexts[num].attr({
                 fontSize: self.textList[num].fontSize + 'px',
                 fill: self.textList[num].fontC,
                 opacity: self.textList[num].textOpacity
             });
 
         }, 200);
+
     };
 
     self.textDelete = function (num) {
+
         self.textList.splice(num, 1);
-        var targetText = svgBox.selectAll('.plainText');
-        targetText[num].remove();
+        targetTexts = svgBox.selectAll('.plainText');
+        targetTexts[num].remove();
+
     };
 
 
     self.distResult = function () {
-        resultCode = String(svgContainer.innerHTML);
+
+        resultCode = svgContainer.innerHTML;
         resultSpace.innerText = resultCode;
-    }
+
+    };
 
 });

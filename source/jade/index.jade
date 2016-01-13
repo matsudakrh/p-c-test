@@ -3,7 +3,7 @@ html(lang="ja", ng-app='SvgApp')
 	head
 		meta(charset="utf-8")
 		meta(name="viewport", content="width=device-width ,initial-scale=1.0")
-		title 進級展・作品作り
+		title うぇ〜〜〜〜〜〜〜ぶ2016
 		link(rel="stylesheet", href="./css/normalize.css")
 		link(rel="stylesheet", href="./css/materialize.min.css")
 		link(rel="stylesheet", href="./css/index.css")
@@ -15,7 +15,7 @@ html(lang="ja", ng-app='SvgApp')
 	body
 		header
 			.container
-				h1 Snap.svg
+				h1 svg.exp
 		main(ng-controller="SvgController as svgC")
 			.container.clearfix
 				.row
@@ -24,13 +24,13 @@ html(lang="ja", ng-app='SvgApp')
 							.col.s12
 								ul.tabs
 									li.tab.col.s3
-										a.active(href='#circleForm') 丸
+										a.active(href="#circleForm") 丸
 									li.tab.col.s3
-										a(href='#rectForm') 四角
+										a(href="#rectForm") 四角
 									li.tab.col.s3
-										a(href='#starForm') 星
+										a(href="#starForm") 星
 									li.tab.col.s3
-										a(href='#textForm') テキスト
+										a(href="#textForm") テキスト
 							#circleForm.col.s12.row
 								button.btn(type="button", ng-click="svgC.createCircle()") 丸を追加
 								ol.row.col.s12
@@ -51,7 +51,7 @@ html(lang="ja", ng-app='SvgApp')
 											.col.s3
 												label 不透明度
 												input(type="number", max="1", min="0", step="0.1", ng-model="circleP.circleOpacity", ng-change="svgC.circleAttrReplace($index)")
-											.col.s6
+											.col.s3
 												button.btn.btn-danger(type="button", ng-click="svgC.circleDelete($index)") 削除
 							#rectForm.col.s12.row
 								button.btn(type="button", ng-click="svgC.createRect()") 四角を追加
@@ -76,7 +76,7 @@ html(lang="ja", ng-app='SvgApp')
 											.col.s3
 												label 不透明度
 												input(type="range", max="1", min="0.1", step="0.05", ng-model="rectP.rectOpacity", ng-change="svgC.rectAttrReplace($index)")
-											.col.s6
+											.col.s3
 												button.btn.btn-danger(type="button", ng-click="svgC.rectDelete($index)") 削除
 							#starForm.col.s12.row
 								button.btn(type="button", ng-click="svgC.createStar()") 星を追加
@@ -92,7 +92,7 @@ html(lang="ja", ng-app='SvgApp')
 											.col.s3
 												label 不透明度
 												input(type="range", max="1", min="0", step="0.1", ng-model="starP.starOpacity", ng-change="svgC.starAttrReplace($index)")
-											.col.s6
+											.col.s3
 												button.btn.btn-danger(type="button", ng-click="svgC.starDelete($index)") 削除
 
 							#textForm.col.s12.row
@@ -112,7 +112,7 @@ html(lang="ja", ng-app='SvgApp')
 											.col.s3
 												label 不透明度
 												input(type="range", max="1", min="0", step="0.1", ng-model="textP.textOpacity", ng-change="svgC.textAttrReplace($index)")
-											.col.s6
+											.col.s3
 												button.btn.btn-danger(type="button", ng-click="svgC.textDelete($index)") 削除
 
 					.col.s6
