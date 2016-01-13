@@ -64,6 +64,12 @@ app.controller('SvgController', function () {
         }, 200);
     };
 
+    self.circleDelete = function (num) {
+        self.circleList.splice(num, 1);
+        var targetCircle = Snap('#circle' + num);
+        targetCircle.remove();
+    };
+
 
 
     self.rectList = [];
@@ -113,6 +119,12 @@ app.controller('SvgController', function () {
         }, 200);
     };
 
+    self.rectDelete = function (num) {
+        self.rectList.splice(num, 1);
+        var targetCircle = Snap('#rect' + num);
+        targetCircle.remove();
+    };
+
 
 
 
@@ -139,8 +151,6 @@ app.controller('SvgController', function () {
 
     };
 
-
-
     self.starAttrReplace = function (num) {
 
         var timer = setTimeout( function () {
@@ -154,11 +164,14 @@ app.controller('SvgController', function () {
         }, 200);
     };
 
-
+    self.starDelete = function (num) {
+        self.starList.splice(num, 1);
+        var targetCircle = Snap('#star' + num);
+        targetCircle.remove();
+    };
 
 
     self.textList = [];
-
 
     self.insertText = function () {
 
@@ -187,9 +200,7 @@ app.controller('SvgController', function () {
 
 
             var setText = document.getElementById('text' + num);
-
             setText.innerHTML = self.textList[num].valText;
-
 
             var targetText = Snap('#text' + num);
 
@@ -202,6 +213,13 @@ app.controller('SvgController', function () {
 
         }, 200);
     };
+
+    self.textDelete = function (num) {
+        self.textList.splice(num, 1);
+        var targetCircle = Snap('#text' + num);
+        targetCircle.remove();
+    };
+
 
     self.distResult = function () {
         resultCode = String(svgContainer.innerHTML);
