@@ -56,7 +56,7 @@ app.controller('SvgController', function () {
 
 
     self.circleAttrReplace = function (num) {
-        var timer = setTimeout(function(){
+
             targetCircles = svgBox.selectAll('.circleSvg');
             targetCircles[num].attr({
                 r: self.circleList[num].circleR,
@@ -65,7 +65,7 @@ app.controller('SvgController', function () {
                 strokeWidth: self.circleList[num].circleBW,
                 opacity: self.circleList[num].circleOpacity
             });
-        }, 200);
+
     };
 
     self.circleDelete = function (num) {
@@ -111,9 +111,8 @@ app.controller('SvgController', function () {
 
     self.rectAttrReplace = function (num) {
 
-        var timer = setTimeout(function(){
-
             targetRects = svgBox.selectAll('.rectSvg');
+
             targetRects[num].attr({
                 width: self.rectList[num].rectW,
                 height: self.rectList[num].rectH,
@@ -122,8 +121,6 @@ app.controller('SvgController', function () {
                 strokeWidth: self.rectList[num].rectBW,
                 opacity: self.rectList[num].rectOpacity
             });
-
-        }, 200);
 
     };
 
@@ -160,7 +157,6 @@ app.controller('SvgController', function () {
 
     self.starAttrReplace = function (num) {
 
-        var timer = setTimeout( function () {
             targetStars = svgBox.selectAll('.starSvg');
             targetStars[num].attr({
                 fontSize: self.starList[num].fontSize + 'px',
@@ -168,7 +164,6 @@ app.controller('SvgController', function () {
                 opacity: self.starList[num].starOpacity
             });
 
-        }, 200);
     };
 
     self.starDelete = function (num) {
@@ -217,8 +212,6 @@ app.controller('SvgController', function () {
 
     self.textAttrReplace = function (num) {
 
-        var timer = setTimeout( function () {
-
             setTexts = document.getElementsByClassName('plainText');
             setTexts[num].innerHTML = escapeHtml(self.textList[num].valText);
 
@@ -229,8 +222,6 @@ app.controller('SvgController', function () {
                 fill: self.textList[num].fontC,
                 opacity: self.textList[num].textOpacity
             });
-
-        }, 200);
 
     };
 
