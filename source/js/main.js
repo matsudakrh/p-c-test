@@ -185,7 +185,7 @@ app.controller('SvgController', function () {
         self.textList.push({
             valText: 'テキスト',
             fontC: '#000000',
-            fontSize: 60,
+            fontSize: 30,
             textOpacity: 1
         });
 
