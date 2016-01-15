@@ -11,7 +11,6 @@ app.controller('SvgController', function () {
     var svgContainer = document.getElementById('svgContainer');
     var resultSpace = document.getElementById('resultArea');
     var resultCode;
-    var forms = document.getElementsByClassName('tab-target');
 
 
     var svgBox = Snap('#' + svgId).attr({
@@ -21,38 +20,46 @@ app.controller('SvgController', function () {
     });
 
 
+
+    /* --------- 丸ここから ------------- */
+
+
     self.circleList = [];
+
+    var circleProperty = function () {
+
+        this.circleR = 20;
+        this.circleCx = centerX;
+        this.circleCy = centerY;
+        this.circleBC =  "#000000";
+        this.circleBW = 4;
+        this.circleFill = "#000000";
+        this.circleOpacity = 1;
+
+    };
 
 
     self.createCircle = function () {
 
-        self.circleList.push({
-            circleR: 20,
-            circleCx: centerX,
-            circleCy: centerY,
-            circleBC: "#000000",
-            circleBW: 4,
-            circleFill: "#000000",
-            circleOpacity: 1
-        });
+        var circleP = new circleProperty();
+
+        self.circleList.push(circleP);
 
         self.circles = svgBox.circle()
             .attr({
-                r: self.circleList[self.circleList.length - 1].circleR,
-                cx: self.circleList[self.circleList.length - 1].circleCx,
-                cy: self.circleList[self.circleList.length - 1].circleCy,
-                fill: self.circleList[self.circleList.length - 1].circleFill,
-                stroke: self.circleList[self.circleList.length - 1].circleBC,
-                strokeWidth: self.circleList[self.circleList.length - 1].circleBW,
-                opacity: self.circleList[self.circleList.length - 1].circleOpacity,
+                r: circleP.circleR,
+                cx: circleP.circleCx,
+                cy: circleP.circleCy,
+                fill: circleP.circleFill,
+                stroke: circleP.circleBC,
+                strokeWidth: circleP.circleBW,
+                opacity: circleP.circleOpacity,
                 class: 'circleSvg',
                 id: "circle" + (self.circleList.length - 1)
             })
             .drag();
 
     };
-
-
 
 
     self.circleAttrReplace = function (num) {
@@ -75,32 +82,45 @@ app.controller('SvgController', function () {
     };
 
 
+    /* --------- 丸ここまで ------------- */
+
+
+
+    /* --------- 四角ここから ------------- */
 
     self.rectList = [];
 
+
+    var rectProperty = function () {
+
+        this.rectW = 40;
+        this.rectH = 40;
+        this.rectX = centerX;
+        this.rectY = centerY;
+        this.rectFill = "#000000";
+        this.rectBW = 4;
+        this.rectBC = "#000000";
+        this.rectOpacity = 1;
+        this.rectDegr = 0;
+
+    };
+
     self.createRect = function () {
-        self.rectList.push({
-            rectW: 40,
-            rectH: 40,
-            rectX: centerX,
-            rectY: centerY,
-            rectFill: "#000000",
-            rectBW: 4,
-            rectBC: "#000000",
-            rectOpacity: 1,
-            rectDegr: 0
-        });
+
+        var rectP = new rectProperty();
+
+        self.rectList.push(rectP);
 
         self.rects = svgBox.rect()
             .attr({
-                width: self.rectList[self.rectList.length - 1].rectW,
-                height: self.rectList[self.rectList.length - 1].rectH,
-                x: self.rectList[self.rectList.length - 1].rectX,
-                y: self.rectList[self.rectList.length - 1].rectY,
-                fill: self.rectList[self.rectList.length - 1].rectFill,
-                stroke: self.rectList[self.rectList.length - 1].rectBC,
-                strokeWidth: self.rectList[self.rectList.length - 1].rectBW,
-                opacity: self.rectList[self.rectList.length - 1].rectOpacity,
+                width: rectP.rectW,
+                height: rectP.rectH,
+                x: rectP.rectX,
+                y: rectP.rectY,
+                fill: rectP.rectFill,
+                stroke: rectP.rectBC,
+                strokeWidth: rectP.rectBW,
+                opacity: rectP.rectOpacity,
                 class: 'rectSvg',
                 id: "rect" + (self.rectList.length - 1)
             })
@@ -132,23 +152,35 @@ app.controller('SvgController', function () {
 
     };
 
+    /* --------- 四角ここまで ------------- */
+
+
+    /* --------- 星ここから ------------- */
 
     self.starList = [];
 
+    var starProperty = function () {
+
+        this.star = '★';
+        this.fontSize = 60;
+        this.starC= '#000000';
+        this.starOpacity = 1;
+        this.textAnchor = 'middle';
+
+    };
+
     self.createStar = function () {
 
-        self.starList.push({
-            fontSize: 60,
-            starC: '#000000',
-            starOpacity: 1
-        });
+        var starP = new starProperty();
+
+        self.starList.push(starP);
 
         self.stars = svgBox.text(centerX, centerY, '★')
             .attr({
-                fontSize: self.starList[self.starList.length - 1].fontSize + 'px',
-                fill: self.starList[self.starList.length - 1].starC,
-                opacity: self.starList[self.starList.length - 1].starOpacity,
-                textAnchor: 'middle',
+                fontSize: starP.fontSize + 'px',
+                fill: starP.starC,
+                opacity: starP.starOpacity,
+                textAnchor: starP.textAnchor,
                 class: 'starSvg',
                 id: 'star' + (self.starList.length - 1)
             })
@@ -173,31 +205,41 @@ app.controller('SvgController', function () {
     };
 
 
+    /* --------- 星ここまで ------------- */
+
+    /* --------- テキストここから ------------- */
+
     self.textList = [];
+
+    var textProperty = function () {
+        this.valText = 'テキスト';
+        this.fontC = '#000000';
+        this.fontSize = 30;
+        this.textOpacity = 1;
+        this.textAnchor = 'middle';
+        this.class = 'plainText';
+    };
 
     self.insertText = function () {
 
-        self.textList.push({
-            valText: 'テキスト',
-            fontC: '#000000',
-            fontSize: 30,
-            textOpacity: 1
-        });
+        var textP = new textProperty();
 
-        self.texts = svgBox.text(centerX, centerY, self.textList[self.textList.length - 1].valText)
+        self.textList.push(textP);
+
+        self.texts = svgBox.text(centerX, centerY, textP.valText)
             .attr({
-                fill: self.textList[self.textList.length - 1].fontC,
-                fontSize: self.textList[self.textList.length - 1].fontSize,
-                opacity: self.textList[self.textList.length - 1].textOpacity,
-                textAnchor: 'middle',
-                class: 'plainText',
+                fill: textP.fontC,
+                fontSize: textP.fontSize,
+                opacity: textP.textOpacity,
+                textAnchor: textP.textAnchor,
+                class: textP.class,
                 id: 'text' + (self.textList.length - 1)
             })
             .drag();
 
     };
 
-
+    /* エスケープ処理 */
 
     function escapeHtml(str) {
 
@@ -233,6 +275,10 @@ app.controller('SvgController', function () {
 
     };
 
+
+    /* --------- テキストここまで ------------- */
+
+    /* --------- コードタブでsvgコードを表示 ------------- */
 
     self.distResult = function () {
 
