@@ -1,17 +1,5 @@
 @charset "utf-8"
 
-#circleStyle
-  background: #bbffeb
-
-#rectStyle
-  background: #bdf4ff
-
-#starStyle
-  background: #ffffbf
-
-#textStyle
-  background: #ffeabf
-
 li
   list-style-position: inside
 
@@ -62,6 +50,25 @@ li
   padding-bottom: 1em
   background: #ccc
 
+.inner
+  padding: 0 1em
+  background: #fff
+  height: 100%
+  overflow-y: scroll
+
+.indicator
+  display: none
+
+
+
+.tab-circle
+  color: #7dbba3 !important
+.tab-rect
+  color: #7baeb8 !important
+.tab-star
+  color: #b8b87b !important
+.tab-text
+  color: #b8a37b !important
 
 #circleForm
   background: #7dbba3
@@ -76,35 +83,27 @@ li
   background: #b8a37b
 
 
-.inner
-  padding: 0 1em
-  background: #fff
-  height: 100%
-  overflow-y: scroll
 
-.indicator
-  display: none
-
-.tab-circle
-  color: #7dbba3 !important
-.tab-rect
-  color: #7baeb8 !important
-.tab-star
-  color: #b8b87b !important
-.tab-text
-  color: #b8a37b !important
-
-.active
-  &.tab-circle
+#circleStyle
+  background: #bbffeb
+  .tab-circle
     color: #FFF !important
     background: #7dbba3
-  &.tab-rect
+
+#rectStyle
+  background: #bdf4ff
+  .tab-rect
     color: #fff !important
     background: #7baeb8
-  &.tab-star
+
+#starStyle
+  background: #ffffbf
+  .tab-star
     color: #fff !important
     background: #b8b87b
-  &.tab-text
+
+#textStyle
+  background: #ffeabf
+  .tab-text
     color: #fff !important
     background: #b8a37b
-
