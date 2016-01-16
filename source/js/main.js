@@ -8,6 +8,7 @@ app.controller('SvgController', function () {
     var centerY = svgHeight / 2;
     var svgId = 'svgBox';
     var targetCircles, targetRects, targetStars, targetTexts, setTexts;
+    var body = document.getElementById('circleStyle');
     var svgContainer = document.getElementById('svgContainer');
     var resultSpace = document.getElementById('resultArea');
     var resultCode;
@@ -286,5 +287,13 @@ app.controller('SvgController', function () {
         resultSpace.innerText = resultCode;
 
     };
+
+
+
+    self.changeStyle = function (idName) {
+
+        body.id = idName;
+
+    }
 
 });
