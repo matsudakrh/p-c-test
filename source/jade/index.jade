@@ -17,7 +17,7 @@ html(lang="ja", ng-app='SvgApp')
 		+loadJQuery('1.12.0')
 		//script(src="//code.jquery.com/jquery-#{version}.min.js")
 		script(src="./js/materialize.js")
-	body#circle-style
+	body#circleStyle
 		header
 			.container
 				h1 svg.exp
@@ -29,13 +29,13 @@ html(lang="ja", ng-app='SvgApp')
 							.col.s12
 								ul.tabs
 									li.tab.col.s3
-										a.tab-circle.active(href="#circleForm", ng-click="svgC.changeStyle('circle-style')") 丸
+										a.tab-circle.active(href="#circleForm", ng-click="svgC.changeStyle('circleStyle')") 丸
 									li.tab.col.s3
-										a.tab-rect(href="#rectForm", ng-click="svgC.changeStyle('rect-style')") 四角
+										a.tab-rect(href="#rectForm", ng-click="svgC.changeStyle('rectStyle')") 四角
 									li.tab.col.s3
-										a.tab-star(href="#starForm", ng-click="svgC.changeStyle('star-style')") 星
+										a.tab-star(href="#starForm", ng-click="svgC.changeStyle('starStyle')") 星
 									li.tab.col.s3
-										a.tab-text(href="#textForm", ng-click="svgC.changeStyle('text-style')") テキスト
+										a.tab-text(href="#textForm", ng-click="svgC.changeStyle('textStyle')") テキスト
 							#circleForm.col.s12.row
 								.inner
 									button.circle-add-btn.btn.waves-effect.waves-light(type="button", ng-click="svgC.createCircle(); svgC.distResult()") 丸を追加
