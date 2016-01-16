@@ -2,11 +2,13 @@ var app = angular.module('SvgApp',[]);
 app.controller('SvgController', function () {
 
     var self = this;
+
     var svgWidth = 514;
     var svgHeight = 514;
+    var svgId = 'svgBox';
+
     var centerX = svgWidth / 2;
     var centerY = svgHeight / 2;
-    var svgId = 'svgBox';
     var targetCircles, targetRects, targetStars, targetTexts, setTexts;
     var body = document.getElementById('circleStyle');
     var svgContainer = document.getElementById('svgContainer');
@@ -289,6 +291,7 @@ app.controller('SvgController', function () {
     };
 
 
+    /* ------------ タブクリックでスタイル変更 -------------------- */
 
     self.changeStyle = function (idName) {
 

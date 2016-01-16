@@ -6,16 +6,18 @@ var merge = require('event-stream').merge;
 var connect = require('gulp-connect');
 var sass = require('gulp-sass');
 var prefix = require('gulp-autoprefixer');
+var comb = require('gulp-csscomb');
 var data = require('gulp-data');
 
 
 
-
+//sassのコンパイル
 gulp.task('sass', function(){
     gulp.src('source/sass/**/*.sass')
         .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(sass())
-        .pipe(prefix())
+        .pipe(prefix()) //ベンダープレフィクスを自動付与
+        .pipe(comb()) //プロパティのソート
         .pipe(gulp.dest('public/css'))
         .pipe(connect.reload());
 });
@@ -26,9 +28,9 @@ gulp.task('sass', function(){
 //jadeのコンパイル
 gulp.task('jade', function(){
    gulp.src(['source/jade/**/*.jade','!source/jade/component/**/*.jade'],
-       { base:'source/jade' })
+       { base:'source/jade' }) //ディレクトリ構造を維持
        .pipe(jade({
-           pretty: true
+           pretty: true //インデントを維持
        }))
        .pipe(gulp.dest('public'))
        .pipe(connect.reload());
@@ -51,6 +53,12 @@ gulp.task('script', function(){
        .pipe(connect.reload());
 });
 
+//cssファイルのコピー
+gulp.task('css', function(){
+    gulp.src('source/css/**/*.css')
+        .pipe(gulp.dest('public/css'))
+        .pipe(connect.reload());
+});
 
 
 //ファイルの監視
@@ -67,6 +75,9 @@ gulp.task('watch', function(){
     gulp.watch('source/js/**/*.js', function(event) {
         gulp.run('script');
     });
+    gulp.watch('source/css/**/*.css', function(event) {
+        gulp.run('css');
+    });
 });
 
 //ローカルサーバー立ち上げ&自動更新
@@ -78,4 +89,4 @@ gulp.task('server', function(){
 });
 
 
-gulp.task('default', ['sass','jade','script','images','watch','server']);
+gulp.task('default', ['sass', 'css', 'jade', 'script', 'images', 'watch', 'server']);
