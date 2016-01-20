@@ -22,8 +22,6 @@ app.controller('SvgController', function () {
         viewBox: '0,0,' + svgWidth + ',' + svgHeight
     });
 
-
-
     /* --------- 丸ここから ------------- */
 
 
@@ -59,8 +57,7 @@ app.controller('SvgController', function () {
                 opacity: circleP.circleOpacity,
                 class: 'circleSvg',
                 id: "circle" + (self.circleList.length - 1)
-            })
-            .drag();
+            });
 
     };
 
@@ -104,7 +101,7 @@ app.controller('SvgController', function () {
         this.rectBW = 4;
         this.rectBC = "#000000";
         this.rectOpacity = 1;
-        this.rectDegr = 0;
+        //this.rectDegr = 0;
 
     };
 
@@ -291,12 +288,74 @@ app.controller('SvgController', function () {
     };
 
 
+
     /* ------------ タブクリックでスタイル変更 -------------------- */
 
     self.changeStyle = function (idName) {
 
         body.id = idName;
 
+    };
+
+    /* ------------------- 要素をドラッグで移動 ------------------ */
+
+    // ドラッグ判定用
+    var run = false;
+
+
+    // 仮変数
+    var target = {
+        svgBox : document.getElementById('svgBox'),
+        element : ''
+    };
+
+
+    function Point() {
+        this.x = 0;
+        this.y = 0;
     }
+
+    var mouse = new Point();
+
+    //target.svgBox.addEventListener( 'mousemove', mouseMove);
+
+
+    //var circleClick = document.getElementById('circle0');
+
+    target.svgBox.addEventListener( 'mousedown', function (element) {
+
+        target.element = element;
+
+        run = true;
+
+        mouse.x = event.pageX - target.svgBox.offsetLeft; //ブラウザの原点からの距離からscreenCanvasの左のズレをマイナスする
+        mouse.y = event.pageY - target.svgBox.offsetTop;
+
+        target.element.target.setAttribute('cx', mouse.x);
+        target.element.target.setAttribute('cy', mouse.y);
+
+    });
+
+    target.svgBox.addEventListener('mousemove', function (){
+
+
+
+
+        if(run){
+
+            mouse.x = event.pageX - target.svgBox.offsetLeft; //ブラウザの原点からの距離からscreenCanvasの左のズレをマイナスする
+            mouse.y = event.pageY - target.svgBox.offsetTop;
+
+            target.element.target.setAttribute('cx', mouse.x);
+            target.element.target.setAttribute('cy', mouse.y);
+
+        }
+
+    });
+
+    // ドラッグ用処理の無効化
+    document.addEventListener('mouseup', function () {
+        run = false;
+    });
 
 });
