@@ -123,8 +123,7 @@ app.controller('SvgController', function () {
                 opacity: rectP.rectOpacity,
                 class: 'rectSvg',
                 id: "rect" + (self.rectList.length - 1)
-            })
-            .drag();
+            });
 
 
     };
@@ -183,8 +182,7 @@ app.controller('SvgController', function () {
                 textAnchor: starP.textAnchor,
                 class: 'starSvg',
                 id: 'star' + (self.starList.length - 1)
-            })
-            .drag();
+            });
     };
 
     self.starAttrReplace = function (num) {
@@ -234,8 +232,7 @@ app.controller('SvgController', function () {
                 textAnchor: textP.textAnchor,
                 class: textP.class,
                 id: 'text' + (self.textList.length - 1)
-            })
-            .drag();
+            });
 
     };
 
@@ -306,7 +303,7 @@ app.controller('SvgController', function () {
     // 仮変数
     var target = {
         svgBox : document.getElementById('svgBox'),
-        element : ''
+        element : null
     };
 
 
@@ -322,6 +319,38 @@ app.controller('SvgController', function () {
 
     //var circleClick = document.getElementById('circle0');
 
+
+    function pointSet() {
+
+        // 丸を対象にする
+        if(target.element.target.getAttribute('cx')){
+            target.element.target.setAttribute('cx', mouse.x);
+            target.element.target.setAttribute('cy', mouse.y);
+            return;
+        }
+
+        // 丸以外
+        if(target.element.target.getAttribute('x')){
+
+            // 四角形の真ん中を掴めるように
+            if(target.element.target.getAttribute('width')){
+
+                target.element.target.setAttribute('x', mouse.x - (target.element.target.getAttribute('width') / 2) );
+                target.element.target.setAttribute('y', mouse.y - (target.element.target.getAttribute('height') / 2) );
+                return;
+
+            }
+
+            //テキストなど
+            target.element.target.setAttribute('x', mouse.x);
+            target.element.target.setAttribute('y', mouse.y);
+
+        }
+
+
+    }
+
+
     target.svgBox.addEventListener( 'mousedown', function (element) {
 
         target.element = element;
@@ -331,23 +360,66 @@ app.controller('SvgController', function () {
         mouse.x = event.pageX - target.svgBox.offsetLeft; //ブラウザの原点からの距離からscreenCanvasの左のズレをマイナスする
         mouse.y = event.pageY - target.svgBox.offsetTop;
 
-        target.element.target.setAttribute('cx', mouse.x);
-        target.element.target.setAttribute('cy', mouse.y);
+
+        // 丸を対象にする
+        if(target.element.target.getAttribute('cx')){
+            target.element.target.setAttribute('cx', mouse.x);
+            target.element.target.setAttribute('cy', mouse.y);
+            return;
+        }
+
+        // 丸以外
+        if(target.element.target.getAttribute('x')){
+
+            // 四角形の真ん中を掴めるように
+            if(target.element.target.getAttribute('width')){
+
+                target.element.target.setAttribute('x', mouse.x - (target.element.target.getAttribute('width') / 2) );
+                target.element.target.setAttribute('y', mouse.y - (target.element.target.getAttribute('height') / 2) );
+                return;
+
+            }
+
+            //テキストなど
+            target.element.target.setAttribute('x', mouse.x);
+            target.element.target.setAttribute('y', mouse.y);
+
+        }
 
     });
 
     target.svgBox.addEventListener('mousemove', function (){
-
-
-
 
         if(run){
 
             mouse.x = event.pageX - target.svgBox.offsetLeft; //ブラウザの原点からの距離からscreenCanvasの左のズレをマイナスする
             mouse.y = event.pageY - target.svgBox.offsetTop;
 
-            target.element.target.setAttribute('cx', mouse.x);
-            target.element.target.setAttribute('cy', mouse.y);
+            // 丸を対象にする
+            if(target.element.target.getAttribute('cx')){
+                target.element.target.setAttribute('cx', mouse.x);
+                target.element.target.setAttribute('cy', mouse.y);
+                return;
+            }
+
+            // 丸以外
+            if(target.element.target.getAttribute('x')){
+
+                // 四角形の真ん中を掴めるように
+                if(target.element.target.getAttribute('width')){
+
+                    target.element.target.setAttribute('x', mouse.x - (target.element.target.getAttribute('width') / 2) );
+                    target.element.target.setAttribute('y', mouse.y - (target.element.target.getAttribute('height') / 2) );
+                    return;
+
+                }
+
+                //テキストなど
+                target.element.target.setAttribute('x', mouse.x);
+                target.element.target.setAttribute('y', mouse.y);
+
+            }
+
 
         }
 
