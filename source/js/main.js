@@ -17,6 +17,7 @@ app.controller('SvgController', function () {
 
 
     var svgBox = Snap('#' + svgId).attr({
+        xmlns: 'http://www.w3.org/2000/svg',
         width: svgWidth,
         height: svgHeight,
         viewBox: '0,0,' + svgWidth + ',' + svgHeight
@@ -396,5 +397,23 @@ app.controller('SvgController', function () {
     document.addEventListener('mouseup', function () {
         run = false;
     });
+
+
+    /* ---------- リセットボタン ----------- */
+
+    self.deleteAll = function () {
+        self.circleList.splice(0, self.circleList.length);
+        self.rectList.splice(0, self.rectList.length);
+        self.markList.splice(0, self.markList.length);
+        self.textList.splice(0, self.textList.length);
+
+        svgBox.selectAll('circle').remove();
+        svgBox.selectAll('rect').remove();
+        svgBox.selectAll('text').remove();
+
+
+
+    };
+
 
 });

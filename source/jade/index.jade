@@ -146,4 +146,8 @@ html(lang="ja", ng-app='SvgApp')
 							#svgContainer
 								svg#svgBox(width="514", height="514", viewBox="0, 0, 514, 514")
 							#codeArea.clearfix
-								#resultArea
+								.inner
+									.row
+										.col.s3
+											button.button.red(type="button", ng-click="svgC.deleteAll();svgC.distResult()") リセット
+									#resultArea
