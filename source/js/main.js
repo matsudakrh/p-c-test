@@ -9,7 +9,7 @@ app.controller('SvgController', function () {
 
     var centerX = svgWidth / 2;
     var centerY = svgHeight / 2;
-    var targetCircles, targetRects, targetStars, targetTexts, setTexts;
+    var targetCircles, targetRects, targetStars, targetTexts, setTexts, setStar;
     var body = document.getElementById('circleStyle');
     var svgContainer = document.getElementById('svgContainer');
     var resultSpace = document.getElementById('resultArea');
@@ -62,7 +62,7 @@ app.controller('SvgController', function () {
     };
 
 
-    self.circleAttrReplace = function (num) {
+    self.circleAttrReplace = function (num, propertyName, circleP) {
 
             targetCircles = svgBox.selectAll('.circleSvg');
             targetCircles[num].attr({
@@ -101,7 +101,6 @@ app.controller('SvgController', function () {
         this.rectBW = 4;
         this.rectBC = "#000000";
         this.rectOpacity = 1;
-        //this.rectDegr = 0;
 
     };
 
@@ -133,6 +132,7 @@ app.controller('SvgController', function () {
             targetRects = svgBox.selectAll('.rectSvg');
 
             targetRects[num].attr({
+
                 width: self.rectList[num].rectW,
                 height: self.rectList[num].rectH,
                 fill: self.rectList[num].rectFill,
@@ -156,49 +156,67 @@ app.controller('SvgController', function () {
 
     /* --------- 星ここから ------------- */
 
-    self.starList = [];
+    self.markList = [];
 
-    var starProperty = function () {
+    var markProperty = function () {
 
-        this.star = '★';
+        this.mark = '★';
         this.fontSize = 60;
-        this.starC= '#000000';
-        this.starOpacity = 1;
+        this.markC= '#000000';
+        this.markOpacity = 1;
+        this.markText = '★';
         this.textAnchor = 'middle';
 
     };
 
     self.createStar = function () {
 
-        var starP = new starProperty();
+        var markP = new markProperty();
 
-        self.starList.push(starP);
+        self.markList.push(markP);
 
-        self.stars = svgBox.text(centerX, centerY, '★')
+        self.marks = svgBox.text(centerX, centerY, markP.markText)
             .attr({
-                fontSize: starP.fontSize + 'px',
-                fill: starP.starC,
-                opacity: starP.starOpacity,
-                textAnchor: starP.textAnchor,
-                class: 'starSvg',
-                id: 'star' + (self.starList.length - 1)
+                fontSize: markP.fontSize + 'px',
+                fill: markP.markC,
+                opacity: markP.markOpacity,
+                textAnchor: markP.textAnchor,
+                class: 'markSvg',
+                id: 'mark' + (self.markList.length - 1)
             });
     };
 
-    self.starAttrReplace = function (num) {
+    /* エスケープ処理 */
 
-            targetStars = svgBox.selectAll('.starSvg');
+    function escapeHtml(str) {
+
+        str = str.replace(/&/g, '&amp;');
+        str = str.replace(/</g, '&lt;');
+        str = str.replace(/>/g, '&gt;');
+        str = str.replace(/"/g, '&quot;');
+        str = str.replace(/'/g, '&#39;');
+        return str;
+
+    }
+
+    self.markAttrReplace = function (num) {
+
+        setStar = document.getElementsByClassName('markSvg');
+        setStar[num].innerHTML = escapeHtml(self.markList[num].markText);
+
+
+        targetStars = svgBox.selectAll('.markSvg');
             targetStars[num].attr({
-                fontSize: self.starList[num].fontSize + 'px',
-                fill: self.starList[num].starC,
-                opacity: self.starList[num].starOpacity
+                fontSize: self.markList[num].fontSize + 'px',
+                fill: self.markList[num].markC,
+                opacity: self.markList[num].markOpacity
             });
 
     };
 
-    self.starDelete = function (num) {
-        self.starList.splice(num, 1);
-        targetStars = svgBox.selectAll('.starSvg');
+    self.markDelete = function (num) {
+        self.markList.splice(num, 1);
+        targetStars = svgBox.selectAll('.markSvg');
         targetStars[num].remove();
     };
 
@@ -236,18 +254,6 @@ app.controller('SvgController', function () {
 
     };
 
-    /* エスケープ処理 */
-
-    function escapeHtml(str) {
-
-        str = str.replace(/&/g, '&amp;');
-        str = str.replace(/</g, '&lt;');
-        str = str.replace(/>/g, '&gt;');
-        str = str.replace(/"/g, '&quot;');
-        str = str.replace(/'/g, '&#39;');
-        return str;
-
-    }
 
     self.textAttrReplace = function (num) {
 

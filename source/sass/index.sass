@@ -6,6 +6,9 @@ body
 li
   list-style-position: inside
 
+select
+  display: block
+
 text
   user-select: none
   -moz-user-select: none
@@ -40,7 +43,7 @@ text
   background: #fff
   border: 1px dotted #333
 
-.plainText, .starSvg
+.plainText, .markSvg
   cursor: default
 
 #codeArea
@@ -52,7 +55,7 @@ text
 
 
 // フォームのスタイル
-#circleForm, #rectForm, #starForm, #textForm
+#circleForm, #rectForm, #markForm, #textForm
   height: 514px
   overflow: hidden
   padding-top: 1em
@@ -74,7 +77,7 @@ text
   color: #7dbba3 !important
 .tab-rect
   color: #7baeb8 !important
-.tab-star
+.tab-mark
   color: #b8b87b !important
 .tab-text
   color: #b8a37b !important
@@ -85,7 +88,7 @@ text
 #rectForm
   background: #7baeb8
 
-#starForm
+#markForm
   background: #b8b87b
 
 #textForm
@@ -105,9 +108,9 @@ text
     color: #fff !important
     background: #7baeb8
 
-#starStyle
+#markStyle
   background: #ffffbf
-  .tab-star
+  .tab-mark
     color: #fff !important
     background: #b8b87b
 

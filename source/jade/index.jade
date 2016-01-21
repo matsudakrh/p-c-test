@@ -15,12 +15,13 @@ html(lang="ja", ng-app='SvgApp')
 			script.
 				window.jQuery || document.write("<script src='js/jquery-#{ version }.min.js'><\/script>");
 		+loadJQuery('1.12.0')
-		//script(src="//code.jquery.com/jquery-#{version}.min.js")
 		script(src="./js/materialize.js")
 	body#circleStyle
 		header
 			.container
 				h1 svg.exp
+				.row
+					.col.s6
 		main(ng-controller="SvgController as svgC")
 			.container.clearfix
 				.row
@@ -33,7 +34,7 @@ html(lang="ja", ng-app='SvgApp')
 									li.tab.col.s3
 										a.tab-rect(href="#rectForm", ng-click="svgC.changeStyle('rectStyle')") 四角
 									li.tab.col.s3
-										a.tab-star(href="#starForm", ng-click="svgC.changeStyle('starStyle')") 星
+										a.tab-mark(href="#markForm", ng-click="svgC.changeStyle('markStyle')") 記号
 									li.tab.col.s3
 										a.tab-text(href="#textForm", ng-click="svgC.changeStyle('textStyle')") テキスト
 							#circleForm.col.s12.row
@@ -85,23 +86,35 @@ html(lang="ja", ng-app='SvgApp')
 													input(type="range", max="1", min="0.1", step="0.05", ng-model="rectP.rectOpacity", ng-change="svgC.rectAttrReplace($index)")
 												.col.s3
 													button.button.red(type="button", ng-click="svgC.rectDelete($index); svgC.distResult()") 削除
-							#starForm.col.s12.row
+							#markForm.col.s12.row
 								.inner
-									button.star-add-btn.btn.yellow.darken-2.waves-effect.waves-light(type="button", ng-click="svgC.createStar(); svgC.distResult()") 星を追加
+									button.mark-add-btn.btn.yellow.darken-2.waves-effect.waves-light(type="button", ng-click="svgC.createStar(); svgC.distResult()") 記号を追加
 									ol.row.col.s12
-										li.row.col.s12(ng-repeat="starP in svgC.starList track by $index")
+										li.row.col.s12(ng-repeat="markP in svgC.markList track by $index")
 											form
 												.col.s3
+													label 記号
+													select(ng-model="markP.markText", ng-change="svgC.markAttrReplace($index)")
+														option ★
+														option ♪
+														option ♭
+														option ♯
+														option ∞
+														option ∋
+														option ∈
+														option ♂
+														option ♀
+												.col.s3
 													label サイズ
-													input(type="range", max="240", min="12", step="1", ng-model="starP.fontSize", ng-change="svgC.starAttrReplace($index)")
+													input(type="range", max="240", min="12", step="1", ng-model="markP.fontSize", ng-change="svgC.markAttrReplace($index)")
 												.col.s3
 													label 色
-													input(type="text", ng-model="starP.starC", ng-change="svgC.starAttrReplace($index)")
+													input(type="text", ng-model="markP.markC", ng-change="svgC.markAttrReplace($index)")
 												.col.s3
 													label 不透明度
-													input(type="range", max="1", min="0", step="0.1", ng-model="starP.starOpacity", ng-change="svgC.starAttrReplace($index)")
+													input(type="range", max="1", min="0", step="0.1", ng-model="markP.markOpacity", ng-change="svgC.markAttrReplace($index)")
 												.col.s3
-													button.button.red(type="button", ng-click="svgC.starDelete($index); svgC.distResult()") 削除
+													button.button.red(type="button", ng-click="svgC.markDelete($index); svgC.distResult()") 削除
 							#textForm.col.s12.row
 								.inner
 									button.text-add-btn.btn.brown.waves-effect.waves-light(type="button", ng-click="svgC.insertText(); svgC.distResult()") テキストを追加
