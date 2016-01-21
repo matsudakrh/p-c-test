@@ -313,49 +313,10 @@ app.controller('SvgController', function () {
     };
 
 
-    function Point() {
+    var mouse = function () {
         this.x = 0;
         this.y = 0;
-    }
-
-    var mouse = new Point();
-
-    //target.svgBox.addEventListener( 'mousemove', mouseMove);
-
-
-    //var circleClick = document.getElementById('circle0');
-
-
-    function pointSet() {
-
-        // 丸を対象にする
-        if(target.element.target.getAttribute('cx')){
-            target.element.target.setAttribute('cx', mouse.x);
-            target.element.target.setAttribute('cy', mouse.y);
-            return;
-        }
-
-        // 丸以外
-        if(target.element.target.getAttribute('x')){
-
-            // 四角形の真ん中を掴めるように
-            if(target.element.target.getAttribute('width')){
-
-                target.element.target.setAttribute('x', mouse.x - (target.element.target.getAttribute('width') / 2) );
-                target.element.target.setAttribute('y', mouse.y - (target.element.target.getAttribute('height') / 2) );
-                return;
-
-            }
-
-            //テキストなど
-            target.element.target.setAttribute('x', mouse.x);
-            target.element.target.setAttribute('y', mouse.y);
-
-        }
-
-
-    }
-
+    };
 
     target.svgBox.addEventListener( 'mousedown', function (element) {
 
