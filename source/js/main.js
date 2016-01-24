@@ -16,6 +16,13 @@ app.controller('SvgController', function () {
     var resultCode;
 
 
+    var target = {
+        svgBox : document.getElementById('svgBox'),
+        element : null
+    };
+
+
+
     var svgBox = Snap('#' + svgId).attr({
         xmlns: 'http://www.w3.org/2000/svg',
         width: svgWidth,
@@ -24,6 +31,7 @@ app.controller('SvgController', function () {
     });
 
     /* --------- 丸ここから ------------- */
+
 
 
     self.circleList = [];
@@ -207,6 +215,7 @@ app.controller('SvgController', function () {
 
 
         targetStars = svgBox.selectAll('.markSvg');
+
             targetStars[num].attr({
                 fontSize: self.markList[num].fontSize + 'px',
                 fill: self.markList[num].markC,
@@ -301,18 +310,12 @@ app.controller('SvgController', function () {
 
     };
 
+    /* ------------------- スタイル変更ここまで ------------------------ */
+
     /* ------------------- 要素をドラッグで移動 ------------------ */
 
     // ドラッグ判定用
     var run = false;
-
-
-    // 仮変数
-    var target = {
-        svgBox : document.getElementById('svgBox'),
-        element : null
-    };
-
 
     var mouse = function () {
         this.x = 0;
@@ -388,32 +391,83 @@ app.controller('SvgController', function () {
 
             }
 
-
         }
 
     });
 
-    // ドラッグ用処理の無効化
+    // ドラッグ終了判定
     document.addEventListener('mouseup', function () {
+
         run = false;
+        self.saveLocal();
+        self.distResult();
+
     });
 
+    /* ---------------- ドラッグここまで ------------------ */
 
     /* ---------- リセットボタン ----------- */
 
     self.deleteAll = function () {
-        self.circleList.splice(0, self.circleList.length);
-        self.rectList.splice(0, self.rectList.length);
-        self.markList.splice(0, self.markList.length);
-        self.textList.splice(0, self.textList.length);
+
+        //self.circleList.splice(0, self.circleList.length);
+        //self.rectList.splice(0, self.rectList.length);
+        //self.markList.splice(0, self.markList.length);
+        //self.textList.splice(0, self.textList.length);
+
+        self.circleList = [];
+        self.rectList = [];
+        self.markList = [];
+        self.textList = [];
 
         svgBox.selectAll('circle').remove();
         svgBox.selectAll('rect').remove();
         svgBox.selectAll('text').remove();
 
+        localStorage.removeItem('svgData');
 
 
     };
 
+    /* ------------- リセットボタンここまで --------------- */
+
+    /* ------------- リロードしてもデータを維持出来るようにする --------------- */
+
+    self.saveLocal = function () {
+
+        //localStorage.svgData = target.svgBox.innerHTML;
+        store.set('svgData', target.svgBox.innerHTML);
+        store.set('circleList', self.circleList);
+        store.set('rectList', self.rectList);
+        store.set('markList', self.markList);
+        store.set('textList', self.textList);
+
+
+    };
+
+
+
+    if ( store.get('svgData') ) {
+
+        target.svgBox.innerHTML = store.get('svgData');
+        self.circleList = store.get('circleList');
+        self.rectList = store.get('rectList');
+        self.markList = store.get('markList');
+        self.textList = store.get('textList');
+
+    }
+
+
+    /* ----------------- リロード対応ここまで -------------------- */
+
+
+    /* console.logが欲しい時 */
+
+    self.consoleLog = function () {
+
+        console.log(self.circleList);
+        console.log(store.get('circleList'));
+
+    };
 
 });
