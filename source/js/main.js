@@ -31,11 +31,45 @@ app.controller('SvgController', function () {
         viewBox: '0,0,' + svgWidth + ',' + svgHeight
     });
 
+
+    var svgData = localStorage.getItem('source');
+    var circleListJson = localStorage.getItem('circleList');
+    var rectListJson = localStorage.getItem('rectList');
+    var markListJson = localStorage.getItem('markList');
+    var textListJson = localStorage.getItem('textList');
+
+
+
+    /* localStorageを参照 */
+    if ( svgData ) {
+        target.svgBox.innerHTML = svgData;
+    }
+    if ( circleListJson ) {
+        self.circleList = JSON.parse(circleListJson);
+    } else {
+        self.circleList = [];
+    }
+    if ( rectListJson ) {
+        self.rectList = JSON.parse(rectListJson);
+    } else {
+        self.rectList = [];
+    }
+    if ( markListJson ) {
+        self.markList = JSON.parse(markListJson);
+    } else {
+        self.markList = [];
+    }
+    if ( textListJson ) {
+        self.textList = JSON.parse(textListJson);
+    } else {
+        self.textList = [];
+    }
+
+    /* -------------- localStorage参照ここまで --------- */
+
+
     /* --------- 丸ここから ------------- */
 
-
-
-    self.circleList = [];
 
     var circleProperty = function () {
 
@@ -72,9 +106,7 @@ app.controller('SvgController', function () {
     };
 
 
-    self.circleAttrReplace = function (num, propertyName, circleP) {
-
-        circlePropertyHolder = self.circleList[num];
+    self.circleAttrReplace = function (num) {
 
         targetCircles = svgBox.selectAll('.circleSvg');
         targetCircles[num].attr({
@@ -100,7 +132,7 @@ app.controller('SvgController', function () {
 
     /* --------- 四角ここから ------------- */
 
-    self.rectList = [];
+
 
 
     var rectProperty = function () {
@@ -168,7 +200,6 @@ app.controller('SvgController', function () {
 
     /* --------- 星ここから ------------- */
 
-    self.markList = [];
 
     var markProperty = function () {
 
@@ -238,7 +269,6 @@ app.controller('SvgController', function () {
 
     /* --------- テキストここから ------------- */
 
-    self.textList = [];
 
     var textProperty = function () {
         this.valText = 'テキスト';
@@ -398,8 +428,7 @@ app.controller('SvgController', function () {
             svgBox.selectAll('rect').remove();
             svgBox.selectAll('text').remove();
 
-            localStorage.removeItem('svgData');
-
+            localStorage.clear();
         }
 
 
@@ -412,27 +441,14 @@ app.controller('SvgController', function () {
 
     self.saveLocal = function () {
 
-        localStorage.svgData = target.svgBox.innerHTML;
-        //store.set('svgData', target.svgBox.innerHTML);
-        store.set('circleList', self.circleList);
-        store.set('rectList', self.rectList);
-        store.set('markList', self.markList);
-        store.set('textList', self.textList);
-
+        localStorage.setItem('source', target.svgBox.innerHTML);
+        localStorage.setItem('circleList', JSON.stringify(self.circleList));
+        localStorage.setItem('rectList', JSON.stringify(self.rectList));
+        localStorage.setItem('markList', JSON.stringify(self.markList));
+        localStorage.setItem('textList', JSON.stringify(self.textList));
 
     };
 
-
-
-    if ( localStorage.svgData ) {
-
-        target.svgBox.innerHTML = localStorage.svgData;
-        self.circleList = store.get('circleList');
-        self.rectList = store.get('rectList');
-        self.markList = store.get('markList');
-        self.textList = store.get('textList');
-
-    }
 
 
     /* ----------------- リロード対応ここまで -------------------- */
@@ -453,6 +469,7 @@ app.controller('SvgController', function () {
 
 
         console.log(typeof Blob);
+        console.log(localStorage);
 
 
     };
