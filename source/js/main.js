@@ -18,6 +18,7 @@ app.controller('SvgController', function () {
 
     var target = {
         svgBox : document.getElementById('svgBox'),
+        saveBtn : document.getElementById('download'),
         element : null
     };
 
@@ -435,8 +436,8 @@ app.controller('SvgController', function () {
 
     self.saveLocal = function () {
 
-        //localStorage.svgData = target.svgBox.innerHTML;
-        store.set('svgData', target.svgBox.innerHTML);
+        localStorage.svgData = target.svgBox.innerHTML;
+        //store.set('svgData', target.svgBox.innerHTML);
         store.set('circleList', self.circleList);
         store.set('rectList', self.rectList);
         store.set('markList', self.markList);
@@ -447,9 +448,9 @@ app.controller('SvgController', function () {
 
 
 
-    if ( store.get('svgData') ) {
+    if ( localStorage.svgData ) {
 
-        target.svgBox.innerHTML = store.get('svgData');
+        target.svgBox.innerHTML = localStorage.svgData;
         self.circleList = store.get('circleList');
         self.rectList = store.get('rectList');
         self.markList = store.get('markList');
@@ -461,12 +462,16 @@ app.controller('SvgController', function () {
     /* ----------------- リロード対応ここまで -------------------- */
 
 
+    /* ファイルを保存 */
+
+
     /* console.logが欲しい時 */
 
     self.consoleLog = function () {
 
-        console.log(self.circleList);
-        console.log(store.get('circleList'));
+
+        console.log(typeof Blob);
+
 
     };
 
