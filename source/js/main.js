@@ -74,14 +74,16 @@ app.controller('SvgController', function () {
 
     self.circleAttrReplace = function (num, propertyName, circleP) {
 
-            targetCircles = svgBox.selectAll('.circleSvg');
-            targetCircles[num].attr({
-                r: self.circleList[num].circleR,
-                fill: self.circleList[num].circleFill,
-                stroke: self.circleList[num].circleBC,
-                strokeWidth: self.circleList[num].circleBW,
-                opacity: self.circleList[num].circleOpacity
-            });
+        circlePropertyHolder = self.circleList[num];
+
+        targetCircles = svgBox.selectAll('.circleSvg');
+        targetCircles[num].attr({
+            r: self.circleList[num].circleR,
+            fill: self.circleList[num].circleFill,
+            stroke: self.circleList[num].circleBC,
+            strokeWidth: self.circleList[num].circleBW,
+            opacity: self.circleList[num].circleOpacity
+        });
 
     };
 
@@ -139,17 +141,17 @@ app.controller('SvgController', function () {
 
     self.rectAttrReplace = function (num) {
 
-            targetRects = svgBox.selectAll('.rectSvg');
+        targetRects = svgBox.selectAll('.rectSvg');
 
-            targetRects[num].attr({
+        targetRects[num].attr({
 
-                width: self.rectList[num].rectW,
-                height: self.rectList[num].rectH,
-                fill: self.rectList[num].rectFill,
-                stroke: self.rectList[num].rectBC,
-                strokeWidth: self.rectList[num].rectBW,
-                opacity: self.rectList[num].rectOpacity
-            });
+            width: self.rectList[num].rectW,
+            height: self.rectList[num].rectH,
+            fill: self.rectList[num].rectFill,
+            stroke: self.rectList[num].rectBC,
+            strokeWidth: self.rectList[num].rectBW,
+            opacity: self.rectList[num].rectOpacity
+        });
 
     };
 
@@ -217,11 +219,11 @@ app.controller('SvgController', function () {
 
         targetStars = svgBox.selectAll('.markSvg');
 
-            targetStars[num].attr({
-                fontSize: self.markList[num].fontSize + 'px',
-                fill: self.markList[num].markC,
-                opacity: self.markList[num].markOpacity
-            });
+        targetStars[num].attr({
+            fontSize: self.markList[num].fontSize + 'px',
+            fill: self.markList[num].markC,
+            opacity: self.markList[num].markOpacity
+        });
 
     };
 
@@ -268,16 +270,16 @@ app.controller('SvgController', function () {
 
     self.textAttrReplace = function (num) {
 
-            setTexts = document.getElementsByClassName('plainText');
-            setTexts[num].innerHTML = escapeHtml(self.textList[num].valText);
+        setTexts = document.getElementsByClassName('plainText');
+        setTexts[num].innerHTML = escapeHtml(self.textList[num].valText);
 
-            targetTexts = svgBox.selectAll('.plainText');
+        targetTexts = svgBox.selectAll('.plainText');
 
-            targetTexts[num].attr({
-                fontSize: self.textList[num].fontSize + 'px',
-                fill: self.textList[num].fontC,
-                opacity: self.textList[num].textOpacity
-            });
+        targetTexts[num].attr({
+            fontSize: self.textList[num].fontSize + 'px',
+            fill: self.textList[num].fontC,
+            opacity: self.textList[num].textOpacity
+        });
 
     };
 
@@ -329,59 +331,31 @@ app.controller('SvgController', function () {
 
         run = true;
 
-        mouse.x = event.pageX - target.svgBox.offsetLeft; //ブラウザの原点からの距離からscreenCanvasの左のズレをマイナスする
-        mouse.y = event.pageY - target.svgBox.offsetTop;
-
-
-        // 丸を対象にする
-        if(target.element.target.getAttribute('cx')){
-            target.element.target.setAttribute('cx', mouse.x);
-            target.element.target.setAttribute('cy', mouse.y);
-            return;
-        }
-
-        // 丸以外
-        if(target.element.target.getAttribute('x')){
-
-            // 四角形の真ん中を掴めるように
-            if(target.element.target.getAttribute('width')){
-
-                target.element.target.setAttribute('x', mouse.x - (target.element.target.getAttribute('width') / 2) );
-                target.element.target.setAttribute('y', mouse.y - (target.element.target.getAttribute('height') / 2) );
-                return;
-
-            }
-
-            //テキストなど
-            target.element.target.setAttribute('x', mouse.x);
-            target.element.target.setAttribute('y', mouse.y);
-
-        }
 
     });
 
     target.svgBox.addEventListener('mousemove', function (){
 
-        if(run){
+        if( run ){
 
             mouse.x = event.pageX - target.svgBox.offsetLeft; //ブラウザの原点からの距離からscreenCanvasの左のズレをマイナスする
             mouse.y = event.pageY - target.svgBox.offsetTop;
 
             // 丸を対象にする
-            if(target.element.target.getAttribute('cx')){
+            if( target.element.target.getAttribute('cx') ){
                 target.element.target.setAttribute('cx', mouse.x);
                 target.element.target.setAttribute('cy', mouse.y);
                 return;
             }
 
             // 丸以外
-            if(target.element.target.getAttribute('x')){
+            if( target.element.target.getAttribute( 'x' ) ){
 
                 // 四角形の真ん中を掴めるように
-                if(target.element.target.getAttribute('width')){
+                if( target.element.target.getAttribute( 'width' ) ){
 
-                    target.element.target.setAttribute('x', mouse.x - (target.element.target.getAttribute('width') / 2) );
-                    target.element.target.setAttribute('y', mouse.y - (target.element.target.getAttribute('height') / 2) );
+                    target.element.target.setAttribute( 'x', mouse.x - (target.element.target.getAttribute('width') / 2) );
+                    target.element.target.setAttribute( 'y', mouse.y - (target.element.target.getAttribute('height') / 2) );
                     return;
 
                 }
@@ -397,7 +371,7 @@ app.controller('SvgController', function () {
     });
 
     // ドラッグ終了判定
-    document.addEventListener('mouseup', function () {
+    document.addEventListener( 'mouseup', function () {
 
         run = false;
         self.saveLocal();
@@ -411,21 +385,23 @@ app.controller('SvgController', function () {
 
     self.deleteAll = function () {
 
-        //self.circleList.splice(0, self.circleList.length);
-        //self.rectList.splice(0, self.rectList.length);
-        //self.markList.splice(0, self.markList.length);
-        //self.textList.splice(0, self.textList.length);
+        var confirmAnswer = confirm('編集内容をリセットします');
 
-        self.circleList = [];
-        self.rectList = [];
-        self.markList = [];
-        self.textList = [];
+        if ( confirmAnswer ) {
 
-        svgBox.selectAll('circle').remove();
-        svgBox.selectAll('rect').remove();
-        svgBox.selectAll('text').remove();
+            self.circleList = [];
+            self.rectList = [];
+            self.markList = [];
+            self.textList = [];
 
-        localStorage.removeItem('svgData');
+            svgBox.selectAll('circle').remove();
+            svgBox.selectAll('rect').remove();
+            svgBox.selectAll('text').remove();
+
+            localStorage.removeItem('svgData');
+
+        }
+
 
 
     };
@@ -462,7 +438,13 @@ app.controller('SvgController', function () {
     /* ----------------- リロード対応ここまで -------------------- */
 
 
-    /* ファイルを保存 */
+    /* -------------------- ファイルを保存 ---------------------- */
+
+    self.saveImage = function() {
+
+    };
+
+    /* ------------------- ファイル保存ここまで -------------------- */
 
 
     /* console.logが欲しい時 */
@@ -474,5 +456,6 @@ app.controller('SvgController', function () {
 
 
     };
+
 
 });
