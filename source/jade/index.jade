@@ -28,8 +28,6 @@ html(lang="ja", ng-app='SvgApp')
 					.col.s6
 						.row
 							.col.s12
-								button.btn(ng-click="svgC.consoleLog()") コンソール
-							.col.s12
 								ul.tabs
 									li.tab.col.s3
 										a.tab-circle.active(href="#circleForm", ng-click="svgC.changeStyle('circleStyle')") 丸
@@ -151,11 +149,11 @@ html(lang="ja", ng-app='SvgApp')
 								.inner
 									.row
 										.col.s5
-											button#download.btn(type="button", ng-click="svgC.saveImage('my.svg', svgC.imageText)") ダウンロード
+											button#download.btn(type="button", ng-click="svgC.saveImage('my.jpg', svgC.imageText)") ダウンロード
 										.col.s4.offset-s3
 											button.button.red(type="button", ng-click="svgC.deleteAll(); svgC.distResult()") 全てリセット
 									#resultArea
-		#modalContainer
+		//-#modalContainer
 			#modalInner
 				.modal-content
 					.row

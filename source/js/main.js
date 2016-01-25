@@ -448,8 +448,6 @@ app.controller('SvgController', function () {
 
     };
 
-
-
     /* ----------------- リロード対応ここまで -------------------- */
 
 
@@ -468,18 +466,5 @@ app.controller('SvgController', function () {
     };
 
     /* ------------------- ファイル保存ここまで -------------------- */
-
-
-    /* console.logが欲しい時 */
-
-    self.consoleLog = function () {
-
-
-        console.log(typeof Blob);
-        console.log(localStorage);
-
-
-    };
-
 
 });
