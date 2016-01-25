@@ -9,7 +9,6 @@ html(lang="ja", ng-app='SvgApp')
 		link(rel="stylesheet", href="./css/index.css")
 		script(src="./js/snap.svg-min.js")
 		script(src="./js/angular.min.js")
-		script(src="./js/store.min.js")
 		script(src="./js/main.js")
 		mixin loadJQuery( version )
 			script(src="//ajax.googleapis.com/ajax/libs/jquery/#{ version }/jquery.min.js")
@@ -151,8 +150,14 @@ html(lang="ja", ng-app='SvgApp')
 							#codeArea.clearfix
 								.inner
 									.row
-										.col.s4
-											button#download.btn(type="button") ダウンロード
-										.col.s4.offset-s8
+										.col.s5
+											button#download.btn(type="button", ng-click="svgC.saveImage('my.svg', svgC.imageText)") ダウンロード
+										.col.s4.offset-s3
 											button.button.red(type="button", ng-click="svgC.deleteAll(); svgC.distResult()") 全てリセット
 									#resultArea
+		#modalContainer
+			#modalInner
+				.modal-content
+					.row
+						.col.s12.center-align
+							button.button.red(type="button", ng-click="svgC.deleteAll(); svgC.distResult()") 全てリセット

@@ -429,9 +429,8 @@ app.controller('SvgController', function () {
             svgBox.selectAll('text').remove();
 
             localStorage.clear();
+
         }
-
-
 
     };
 
