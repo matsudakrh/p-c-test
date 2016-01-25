@@ -455,7 +455,15 @@ app.controller('SvgController', function () {
 
     /* -------------------- ファイルを保存 ---------------------- */
 
-    self.saveImage = function() {
+    self.saveImage = function(fileName, content) {
+        var blob = new Blob([content]);
+        var url = window.URL || window.webkitURL;
+        var blobURL = url.createObjectURL(blob);
+
+        var a = document.createElement('a');
+        a.download = fileName;
+        a.href = blobURL;
+        a.click();
 
     };
 
