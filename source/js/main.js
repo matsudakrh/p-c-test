@@ -445,6 +445,8 @@ app.controller('SvgController', function () {
         localStorage.setItem('rectList', JSON.stringify(self.rectList));
         localStorage.setItem('markList', JSON.stringify(self.markList));
         localStorage.setItem('textList', JSON.stringify(self.textList));
+        
+        self.imageText = svgContainer.innerHTML;
 
     };
 
