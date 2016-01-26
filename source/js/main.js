@@ -472,8 +472,10 @@ app.controller('SvgController', function () {
 
 
 
-    /* ------------------ canvasにsvgを表示 --------------------- */
+    /* ------------------ svgをpngで保存 --------------------- */
+
     self.drawCanvas = function () {
+
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext("2d");
         var data = svgContainer.innerHTML;
@@ -481,11 +483,23 @@ app.controller('SvgController', function () {
         var img = new Image();
         var svg = new Blob([data], {type: "image/svg+xml;charset=utf-8"});
         var url = DOMURL.createObjectURL(svg);
+
         img.onload = function() {
+
             ctx.drawImage(img, 0, 0);
             DOMURL.revokeObjectURL(url);
+            url = canvas.toDataURL( [ 'image/png']);
+            console.log(url);
+            var a = document.createElement('a');
+            a.download = 'my.png';
+            a.href = url;
+            a.click();
+
         };
+
         img.src = url;
+
+        /* --------------- pngで保存ここまで ---------------------- */
 
     };
 
