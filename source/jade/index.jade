@@ -39,7 +39,7 @@ html(lang="ja", ng-app='SvgApp')
 										a.tab-text(href="#textForm", ng-click="svgC.changeStyle('textStyle')") テキスト
 							#circleForm.col.s12.row
 								.inner
-									button.circle-add-btn.btn.waves-effect.waves-light(type="button", ng-click="svgC.createCircle(); svgC.distResult(); svgC.saveLocal()") 丸を追加
+									button.btn.waves-effect.waves-light(type="button", ng-click="svgC.createCircle(); svgC.distResult(); svgC.saveLocal()") 丸を追加
 									ol.row.col.s12
 										li.row.col.s12(ng-repeat="circleP in svgC.circleList track by $index")
 											form
@@ -149,9 +149,9 @@ html(lang="ja", ng-app='SvgApp')
 								.inner
 									.row
 										.col.s4.center-align
-											button#download.btn(type="button", ng-click="svgC.saveImage('my.svg', svgC.imageText)") SVG
+											button.teal.lighten-1.button.waves-effect.waves-light(type="button", ng-click="svgC.saveImage('my.svg', svgC.imageText)") SVGで保存
 										.col.s4.center-align
-											button.btn(type="button", ng-click="svgC.drawCanvas();") PNG
+											button.teal.lighten-1.button.waves-effect.waves-light(type="button", ng-click="svgC.drawCanvas();") PNGで保存
 										.col.s4
 											button.button.red(type="button", ng-click="svgC.deleteAll(); svgC.distResult()") 全てリセット
 									#resultArea
