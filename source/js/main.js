@@ -458,50 +458,47 @@ app.controller('SvgController', function () {
 
     /* -------------------- ファイルを保存 ---------------------- */
 
-    self.saveImage = function(fileName, content) {
+    self.saveImage = function(fileType, fileName, content) {
 
-        var blob = new Blob([content]);
-        var url = window.URL || window.webkitURL;
-        var blobURL = url.createObjectURL(blob);
 
-        var a = document.createElement('a');
-        a.download = fileName;
-        a.href = blobURL;
-        a.click();
+        if( fileType == 'svg' ){
+
+            var blob = new Blob([content]);
+            var url = window.URL || window.webkitURL;
+            var blobURL = url.createObjectURL(blob);
+
+            var a = document.createElement('a');
+            a.download = fileName;
+            a.href = blobURL;
+            a.click();
+
+        } else if ( fileType == 'png' ) {
+
+            var DOMURL = window.URL || window.webkitURL || window;
+            var img = new Image();
+            var svg = new Blob([content], {type: "image/svg+xml;charset=utf-8"});
+            var url = DOMURL.createObjectURL(svg);
+
+            img.onload = function() {
+
+                ctx.drawImage(img, 0, 0);
+                DOMURL.revokeObjectURL(url);
+                url = JSTarget.canvas.toDataURL( [ 'image/png']);
+                console.log(url);
+                var a = document.createElement('a');
+                a.download = fileName;
+                a.href = url;
+                a.click();
+
+            };
+
+            img.src = url;
+        }
 
     };
 
     /* ------------------- ファイル保存ここまで -------------------- */
 
-
-
-    /* ------------------ svgをpngで保存 --------------------- */
-
-    self.drawCanvas = function () {
-
-        var data = JSTarget.svgContainer.innerHTML;
-        var DOMURL = window.URL || window.webkitURL || window;
-        var img = new Image();
-        var svg = new Blob([data], {type: "image/svg+xml;charset=utf-8"});
-        var url = DOMURL.createObjectURL(svg);
-
-        img.onload = function() {
-
-            ctx.drawImage(img, 0, 0);
-            DOMURL.revokeObjectURL(url);
-            url = JSTarget.canvas.toDataURL( [ 'image/png']);
-            console.log(url);
-            var a = document.createElement('a');
-            a.download = 'my.png';
-            a.href = url;
-            a.click();
-
-        };
-
-        img.src = url;
-
-        /* --------------- pngで保存ここまで ---------------------- */
-
-    };
+    
 
 });

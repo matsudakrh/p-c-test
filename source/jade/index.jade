@@ -149,9 +149,9 @@ html(lang="ja", ng-app='SvgApp')
 								.inner
 									.row
 										.col.s4.center-align
-											button.teal.lighten-1.button.waves-effect.waves-light(type="button", ng-click="svgC.saveImage('my.svg', svgC.imageText)") SVGで保存
+											button.teal.lighten-1.button.waves-effect.waves-light(type="button", ng-click="svgC.saveImage('svg', 'my.svg', svgC.imageText)") SVGで保存
 										.col.s4.center-align
-											button.teal.lighten-1.button.waves-effect.waves-light(type="button", ng-click="svgC.drawCanvas();") PNGで保存
+											button.teal.lighten-1.button.waves-effect.waves-light(type="button", ng-click="svgC.saveImage('png', 'my.png', svgC.imageText);") PNGで保存
 										.col.s4
 											button.button.red(type="button", ng-click="svgC.deleteAll(); svgC.distResult()") 全てリセット
 									#resultArea
