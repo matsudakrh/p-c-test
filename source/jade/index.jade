@@ -148,9 +148,11 @@ html(lang="ja", ng-app='SvgApp')
 							#codeArea.clearfix
 								.inner
 									.row
-										.col.s5
+										.col.s4
 											button#download.btn(type="button", ng-click="svgC.saveImage('my.svg', svgC.imageText)") ダウンロード
-										.col.s4.offset-s3
+										.col.s4
+											button.btn(type="button", ng-click="svgC.drawCanvas();") jpg
+										.col.s4
 											button.button.red(type="button", ng-click="svgC.deleteAll(); svgC.distResult()") 全てリセット
 									#resultArea
 		//-#modalContainer
@@ -159,3 +161,7 @@ html(lang="ja", ng-app='SvgApp')
 					.row
 						.col.s12.center-align
 							button.button.red(type="button", ng-click="svgC.deleteAll(); svgC.distResult()") 全てリセット
+	.container
+		.row
+			.col.s6
+				canvas#canvas(width="514", height="514")

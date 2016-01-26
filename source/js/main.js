@@ -445,7 +445,7 @@ app.controller('SvgController', function () {
         localStorage.setItem('rectList', JSON.stringify(self.rectList));
         localStorage.setItem('markList', JSON.stringify(self.markList));
         localStorage.setItem('textList', JSON.stringify(self.textList));
-        
+
         self.imageText = svgContainer.innerHTML;
 
     };
@@ -456,6 +456,7 @@ app.controller('SvgController', function () {
     /* -------------------- ファイルを保存 ---------------------- */
 
     self.saveImage = function(fileName, content) {
+
         var blob = new Blob([content]);
         var url = window.URL || window.webkitURL;
         var blobURL = url.createObjectURL(blob);
@@ -468,5 +469,24 @@ app.controller('SvgController', function () {
     };
 
     /* ------------------- ファイル保存ここまで -------------------- */
+
+
+
+    /* ------------------ canvasにsvgを表示 --------------------- */
+    self.drawCanvas = function () {
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var data = svgContainer.innerHTML;
+        var DOMURL = window.URL || window.webkitURL || window;
+        var img = new Image();
+        var svg = new Blob([data], {type: "image/svg+xml;charset=utf-8"});
+        var url = DOMURL.createObjectURL(svg);
+        img.onload = function() {
+            ctx.drawImage(img, 0, 0);
+            DOMURL.revokeObjectURL(url);
+        };
+        img.src = url;
+
+    };
 
 });
