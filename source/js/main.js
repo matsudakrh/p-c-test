@@ -10,19 +10,22 @@ app.controller('SvgController', function () {
     var centerX = svgWidth / 2;
     var centerY = svgHeight / 2;
     var targetCircles, targetRects, targetStars, targetTexts, setTexts, setStar;
-    var body = document.getElementById('circleStyle');
-    var svgContainer = document.getElementById('svgContainer');
-    var resultSpace = document.getElementById('resultArea');
     var resultCode;
 
-
-    var target = {
+    var JSTarget = {
         svgBox : document.getElementById('svgBox'),
+        svgContainer : document.getElementById('svgContainer'),
+        resultSpace : document.getElementById('resultArea'),
+        body : document.getElementById('circleStyle'),
         saveBtn : document.getElementById('download'),
+        canvas : document.getElementById("canvas"),
         element : null
     };
 
+    JSTarget.canvas.setAttribute('width', svgWidth);
+    JSTarget.canvas.setAttribute('height', svgHeight);
 
+    var ctx = JSTarget.canvas.getContext("2d");
 
     var svgBox = Snap('#' + svgId).attr({
         xmlns: 'http://www.w3.org/2000/svg',
@@ -42,7 +45,7 @@ app.controller('SvgController', function () {
 
     /* localStorageを参照 */
     if ( svgData ) {
-        target.svgBox.innerHTML = svgData;
+        JSTarget.svgBox.innerHTML = svgData;
     }
     if ( circleListJson ) {
         self.circleList = JSON.parse(circleListJson);
@@ -328,8 +331,8 @@ app.controller('SvgController', function () {
 
     self.distResult = function () {
 
-        resultCode = svgContainer.innerHTML;
-        resultSpace.innerText = resultCode;
+        resultCode = JSTarget.svgContainer.innerHTML;
+        JSTarget.resultSpace.innerText = resultCode;
 
     };
 
@@ -339,7 +342,7 @@ app.controller('SvgController', function () {
 
     self.changeStyle = function (idName) {
 
-        body.id = idName;
+        JSTarget.body.id = idName;
 
     };
 
@@ -355,44 +358,44 @@ app.controller('SvgController', function () {
         this.y = 0;
     };
 
-    target.svgBox.addEventListener( 'mousedown', function (element) {
+    JSTarget.svgBox.addEventListener( 'mousedown', function (element) {
 
-        target.element = element;
+        JSTarget.element = element;
 
         run = true;
 
 
     });
 
-    target.svgBox.addEventListener('mousemove', function (){
+    JSTarget.svgBox.addEventListener('mousemove', function (){
 
         if( run ){
 
-            mouse.x = event.pageX - target.svgBox.offsetLeft; //ブラウザの原点からの距離からscreenCanvasの左のズレをマイナスする
-            mouse.y = event.pageY - target.svgBox.offsetTop;
+            mouse.x = event.pageX - JSTarget.svgBox.offsetLeft; //ブラウザの原点からの距離からscreenCanvasの左のズレをマイナスする
+            mouse.y = event.pageY - JSTarget.svgBox.offsetTop;
 
             // 丸を対象にする
-            if( target.element.target.getAttribute('cx') ){
-                target.element.target.setAttribute('cx', mouse.x);
-                target.element.target.setAttribute('cy', mouse.y);
+            if( JSTarget.element.target.getAttribute('cx') ){
+                JSTarget.element.target.setAttribute('cx', mouse.x);
+                JSTarget.element.target.setAttribute('cy', mouse.y);
                 return;
             }
 
             // 丸以外
-            if( target.element.target.getAttribute( 'x' ) ){
+            if( JSTarget.element.target.getAttribute( 'x' ) ){
 
                 // 四角形の真ん中を掴めるように
-                if( target.element.target.getAttribute( 'width' ) ){
+                if( JSTarget.element.target.getAttribute( 'width' ) ){
 
-                    target.element.target.setAttribute( 'x', mouse.x - (target.element.target.getAttribute('width') / 2) );
-                    target.element.target.setAttribute( 'y', mouse.y - (target.element.target.getAttribute('height') / 2) );
+                    JSTarget.element.target.setAttribute( 'x', mouse.x - (JSTarget.element.target.getAttribute('width') / 2) );
+                    JSTarget.element.target.setAttribute( 'y', mouse.y - (JSTarget.element.target.getAttribute('height') / 2) );
                     return;
 
                 }
 
                 //テキストなど
-                target.element.target.setAttribute('x', mouse.x);
-                target.element.target.setAttribute('y', mouse.y);
+                JSTarget.element.target.setAttribute('x', mouse.x);
+                JSTarget.element.target.setAttribute('y', mouse.y);
 
             }
 
@@ -440,13 +443,13 @@ app.controller('SvgController', function () {
 
     self.saveLocal = function () {
 
-        localStorage.setItem('source', target.svgBox.innerHTML);
+        localStorage.setItem('source', JSTarget.svgBox.innerHTML);
         localStorage.setItem('circleList', JSON.stringify(self.circleList));
         localStorage.setItem('rectList', JSON.stringify(self.rectList));
         localStorage.setItem('markList', JSON.stringify(self.markList));
         localStorage.setItem('textList', JSON.stringify(self.textList));
 
-        self.imageText = svgContainer.innerHTML;
+        self.imageText = JSTarget.svgContainer.innerHTML;
 
     };
 
@@ -476,9 +479,7 @@ app.controller('SvgController', function () {
 
     self.drawCanvas = function () {
 
-        var canvas = document.getElementById("canvas");
-        var ctx = canvas.getContext("2d");
-        var data = svgContainer.innerHTML;
+        var data = JSTarget.svgContainer.innerHTML;
         var DOMURL = window.URL || window.webkitURL || window;
         var img = new Image();
         var svg = new Blob([data], {type: "image/svg+xml;charset=utf-8"});
@@ -488,7 +489,7 @@ app.controller('SvgController', function () {
 
             ctx.drawImage(img, 0, 0);
             DOMURL.revokeObjectURL(url);
-            url = canvas.toDataURL( [ 'image/png']);
+            url = JSTarget.canvas.toDataURL( [ 'image/png']);
             console.log(url);
             var a = document.createElement('a');
             a.download = 'my.png';
