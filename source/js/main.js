@@ -24,7 +24,7 @@ app.controller('SvgController', function () {
     };
 
     var preferenceP = function () {
-        this.BC = 'none';
+        this.BC = '#ffffff';
         this.polygonOpacity = 1;
     };
 
@@ -109,7 +109,7 @@ app.controller('SvgController', function () {
             fill : self.preferenceP.BC,
             opacity: self.preferenceP.polygonOpacity
         });
-       Snap('#previewPreference').attr({
+        Snap('#previewPreference').attr({
             fill : self.preferenceP.BC,
             opacity: self.preferenceP.polygonOpacity
         });
@@ -469,7 +469,7 @@ app.controller('SvgController', function () {
 
     self.deleteAll = function () {
 
-        var confirmAnswer = confirm('編集内容をリセットします');
+        var confirmAnswer = confirm('編集内容をリセットします。\nよろしいですか？');
 
         if ( confirmAnswer ) {
 
@@ -525,6 +525,12 @@ app.controller('SvgController', function () {
     self.saveImage = function(fileType, fileName, content) {
 
 
+
+        if ( typeof Blob == "undefined" ) {
+            alert('このブラウザではダウンロード機能が利用出来ません,\nご了承下さい。');
+            return;
+        }
+
         if( fileType == 'svg' ){
 
             var blob = new Blob([content]);
@@ -563,6 +569,6 @@ app.controller('SvgController', function () {
 
     /* ------------------- ファイル保存ここまで -------------------- */
 
-    
+
 
 });
