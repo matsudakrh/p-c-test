@@ -46,11 +46,11 @@ text
 .plainText, .markSvg
   cursor: default
 
-#codeArea
+#codeArea,#preferenceArea
   width: 514px
   height: 514px
   margin: 0 auto
-  background: #fff
+  background: #999
   padding: 1em
 
 
@@ -63,7 +63,7 @@ text
   background: #ccc
 
 .inner
-  padding: 0 1em
+  padding: 1em
   background: #fff
   height: 100%
   overflow-y: scroll
@@ -121,6 +121,14 @@ text
     background: #b8a37b
 
 
+#canvasTab,#saveTab,#preferenceTab
+  a
+    color: #666
+    &.active
+      background: #999
+      color: #fff
+
+
 //-#modalContainer
   position: fixed
   top: 0
@@ -146,6 +154,9 @@ text
   z-index: 11
   background: #fff
   border-radius: 10px
+
+#previewPreference
+  @extend #svgBox
 
 #canvas
   display: none

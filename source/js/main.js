@@ -6,6 +6,7 @@ app.controller('SvgController', function () {
     var svgWidth = 514;
     var svgHeight = 514;
     var svgId = 'svgBox';
+    var BGId = 'BGPolygon';
 
     var centerX = svgWidth / 2;
     var centerY = svgHeight / 2;
@@ -22,6 +23,11 @@ app.controller('SvgController', function () {
         element : null
     };
 
+    var preferenceP = function () {
+        this.BC = 'none';
+        this.polygonOpacity = 1;
+    };
+
     JSTarget.canvas.setAttribute('width', svgWidth);
     JSTarget.canvas.setAttribute('height', svgHeight);
 
@@ -36,6 +42,7 @@ app.controller('SvgController', function () {
 
 
     var svgData = localStorage.getItem('source');
+    var preferencePJson = localStorage.getItem('preference');
     var circleListJson = localStorage.getItem('circleList');
     var rectListJson = localStorage.getItem('rectList');
     var markListJson = localStorage.getItem('markList');
@@ -46,6 +53,11 @@ app.controller('SvgController', function () {
     /* localStorageを参照 */
     if ( svgData ) {
         JSTarget.svgBox.innerHTML = svgData;
+    }
+    if ( preferencePJson ) {
+        self.preferenceP = JSON.parse(preferencePJson);
+    } else {
+        self.preferenceP = new preferenceP();
     }
     if ( circleListJson ) {
         self.circleList = JSON.parse(circleListJson);
@@ -70,6 +82,45 @@ app.controller('SvgController', function () {
 
     /* -------------- localStorage参照ここまで --------- */
 
+
+
+    /* ------------ 設定 ---------------- */
+
+
+
+    if ( svgBox.selectAll('polygon').length <= 0 ) {
+
+        var polygonTag = svgBox.polygon('0,0 ' + svgWidth +',0 ' + svgWidth + ',' + svgHeight + ' 0,' + svgHeight);
+
+        polygonTag.attr({
+            fill : self.preferenceP.BC,
+            opacity: self.preferenceP.polygonOpacity,
+            id : BGId
+        });
+
+        svgBox.append(polygonTag);
+
+    }
+
+
+    self.preferenceReplace = function () {
+
+        Snap('#' + BGId).attr({
+            fill : self.preferenceP.BC,
+            opacity: self.preferenceP.polygonOpacity
+        });
+       Snap('#previewPreference').attr({
+            fill : self.preferenceP.BC,
+            opacity: self.preferenceP.polygonOpacity
+        });
+
+
+    };
+
+    self.preferenceReplace(); //ロード時の初期化
+
+
+    /* ---------------- 設定ここまで --------------- */
 
     /* --------- 丸ここから ------------- */
 
@@ -427,11 +478,23 @@ app.controller('SvgController', function () {
             self.markList = [];
             self.textList = [];
 
+
+            self.preferenceP = new preferenceP();
+
+            Snap('#' + BGId).attr({
+                fill : self.preferenceP.BC,
+                opacity: self.preferenceP.polygonOpacity
+            });
+
+            self.preferenceReplace();
+
             svgBox.selectAll('circle').remove();
             svgBox.selectAll('rect').remove();
             svgBox.selectAll('text').remove();
 
             localStorage.clear();
+
+            self.distResult();
 
         }
 
@@ -444,6 +507,7 @@ app.controller('SvgController', function () {
     self.saveLocal = function () {
 
         localStorage.setItem('source', JSTarget.svgBox.innerHTML);
+        localStorage.setItem('preference', JSON.stringify(self.preferenceP));
         localStorage.setItem('circleList', JSON.stringify(self.circleList));
         localStorage.setItem('rectList', JSON.stringify(self.rectList));
         localStorage.setItem('markList', JSON.stringify(self.markList));
