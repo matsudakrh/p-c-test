@@ -23,15 +23,25 @@ app.controller('SvgController', function () {
         element : null
     };
 
+    /* -------------------- -------------------- */
+
     var preferenceP = function () {
         this.BC = '#ffffff';
         this.polygonOpacity = 1;
     };
 
+
+    /* --------------- pngで保存用canvasの初期化 ---------------- */
+
     JSTarget.canvas.setAttribute('width', svgWidth);
     JSTarget.canvas.setAttribute('height', svgHeight);
 
     var ctx = JSTarget.canvas.getContext("2d");
+
+    /* --------------- canvasの初期化ここまで ---------------- */
+
+
+    /* ------------------ svg領域の初期化 ------------------ */
 
     var svgBox = Snap('#' + svgId).attr({
         xmlns: 'http://www.w3.org/2000/svg',
@@ -40,6 +50,11 @@ app.controller('SvgController', function () {
         viewBox: '0,0,' + svgWidth + ',' + svgHeight
     });
 
+    /* ------------------ 初期化ここまで ------------------ */
+
+
+
+    /* ----------------- localStorageを参照 -------------------- */
 
     var svgData = localStorage.getItem('source');
     var preferencePJson = localStorage.getItem('preference');
@@ -49,8 +64,6 @@ app.controller('SvgController', function () {
     var textListJson = localStorage.getItem('textList');
 
 
-
-    /* localStorageを参照 */
     if ( svgData ) {
         JSTarget.svgBox.innerHTML = svgData;
     }
@@ -131,7 +144,7 @@ app.controller('SvgController', function () {
         this.circleCx = centerX;
         this.circleCy = centerY;
         this.circleBC =  "#000000";
-        this.circleBW = 4;
+        this.circleBW = 0;
         this.circleFill = "#000000";
         this.circleOpacity = 1;
 
@@ -161,6 +174,18 @@ app.controller('SvgController', function () {
 
 
     self.circleAttrReplace = function (num) {
+
+        if(
+            !self.circleList[num].circleR ||
+            self.circleList[num].circleR < 1 ||
+            !self.circleList[num].circleFill ||
+            !self.circleList[num].circleBC ||
+            !self.circleList[num].circleBW ||
+            !self.circleList[num].circleOpacity
+        ){
+            return;
+        }
+
 
         targetCircles = svgBox.selectAll('.circleSvg');
         targetCircles[num].attr({
@@ -196,7 +221,7 @@ app.controller('SvgController', function () {
         this.rectX = centerX;
         this.rectY = centerY;
         this.rectFill = "#000000";
-        this.rectBW = 4;
+        this.rectBW = 0;
         this.rectBC = "#000000";
         this.rectOpacity = 1;
 
@@ -301,7 +326,6 @@ app.controller('SvgController', function () {
         setStar = document.getElementsByClassName('markSvg');
         setStar[num].innerHTML = escapeHtml(self.markList[num].markText);
 
-
         targetStars = svgBox.selectAll('.markSvg');
 
         targetStars[num].attr({
@@ -356,6 +380,17 @@ app.controller('SvgController', function () {
 
         setTexts = document.getElementsByClassName('plainText');
         setTexts[num].innerHTML = escapeHtml(self.textList[num].valText);
+
+
+        if(
+            !self.textList[num].fontSize ||
+            self.textList[num].fontSize < 10 ||
+            !self.textList[num].fontC ||
+            !self.textList[num].textOpacity
+        ){
+            return;
+        }
+
 
         targetTexts = svgBox.selectAll('.plainText');
 
