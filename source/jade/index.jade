@@ -2,7 +2,7 @@ doctype html
 html(lang="ja", ng-app='SvgApp')
 	head
 		meta(charset="utf-8")
-		meta(name="viewport", content="width=device-width ,initial-scale=1.0")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
 		title svg.exp
 		link(rel="stylesheet", href="./css/normalize.css")
 		link(rel="stylesheet", href="./css/materialize.min.css")
@@ -88,7 +88,7 @@ html(lang="ja", ng-app='SvgApp')
 													button.button.red(type="button", ng-click="svgC.rectDelete($index); svgC.distResult(); svgC.saveLocal()") 削除
 							#markForm.col.s12.row
 								.inner
-									button.mark-add-btn.btn.yellow.darken-2.waves-effect.waves-light(type="button", ng-click="svgC.createStar(); svgC.distResult(); svgC.saveLocal()") 記号を追加
+									button.mark-add-btn.btn.yellow.darken-2.waves-effect.waves-light(type="button", ng-click="svgC.createMark(); svgC.distResult(); svgC.saveLocal()") 記号を追加
 									ol.row.col.s12
 										li.row.col.s12(ng-repeat="markP in svgC.markList track by $index")
 											form
@@ -160,12 +160,12 @@ html(lang="ja", ng-app='SvgApp')
 							#preferenceArea.clearfix
 								.inner
 									.row
-										.col.s6
+										.col.s12
 											label 背景色
 											input(type="text", ng-model="svgC.preferenceP.BC", ng-change="svgC.preferenceReplace();svgC.saveLocal()")
-										.col.s6
+										.col.s12
 											label 背景の不透明度
-											input(type="range", max="1", min="0.1", step="0.1", ng-model="svgC.preferenceP.polygonOpacity", ng-change="svgC.preferenceReplace();svgC.saveLocal()")
+											input(type="range", max="1", min="0", step="0.04", ng-model="svgC.preferenceP.polygonOpacity", ng-change="svgC.preferenceReplace();svgC.saveLocal()")
 										.col.s12
 											svg#previewPreference(width="100", height="100", viewbox="0,0,100,100")
 												rect(x="0", y="0", width="100%", height="100%")

@@ -10,7 +10,7 @@ app.controller('SvgController', function () {
 
     var centerX = svgWidth / 2;
     var centerY = svgHeight / 2;
-    var targetCircles, targetRects, targetStars, targetTexts, setTexts, setStar;
+    var targetCircles, targetRects, targetMarks, targetTexts, setTexts, setMarks;
     var resultCode;
 
     var JSTarget = {
@@ -180,7 +180,7 @@ app.controller('SvgController', function () {
             self.circleList[num].circleR < 1 ||
             !self.circleList[num].circleFill ||
             !self.circleList[num].circleBC ||
-            !self.circleList[num].circleBW ||
+            !self.circleList[num].circleBW < 0 ||
             !self.circleList[num].circleOpacity
         ){
             return;
@@ -252,6 +252,20 @@ app.controller('SvgController', function () {
 
     self.rectAttrReplace = function (num) {
 
+
+        if(
+            !self.rectList[num].rectW ||
+            self.rectList[num].rectW < 10 ||
+            !self.rectList[num].rectH ||
+            self.rectList[num].rectH < 10 ||
+            !self.rectList[num].rectFill ||
+            !self.rectList[num].rectBC ||
+            self.rectList[num].rectBW < 0 ||
+            !self.rectList[num].rectOpacity
+        ){
+            return;
+        }
+
         targetRects = svgBox.selectAll('.rectSvg');
 
         targetRects[num].attr({
@@ -277,7 +291,7 @@ app.controller('SvgController', function () {
     /* --------- 四角ここまで ------------- */
 
 
-    /* --------- 星ここから ------------- */
+    /* --------- 記号ここから ------------- */
 
 
     var markProperty = function () {
@@ -291,7 +305,7 @@ app.controller('SvgController', function () {
 
     };
 
-    self.createStar = function () {
+    self.createMark = function () {
 
         var markP = new markProperty();
 
@@ -323,12 +337,25 @@ app.controller('SvgController', function () {
 
     self.markAttrReplace = function (num) {
 
-        setStar = document.getElementsByClassName('markSvg');
-        setStar[num].innerHTML = escapeHtml(self.markList[num].markText);
+        setMarks = document.getElementsByClassName('markSvg');
+        setMarks[num].innerHTML = escapeHtml(self.markList[num].markText);
 
-        targetStars = svgBox.selectAll('.markSvg');
 
-        targetStars[num].attr({
+
+        if(
+            !self.markList[num].fontSize ||
+            self.markList[num].fontSize < 10 ||
+            !self.markList[num].markC ||
+            !self.markList[num].markOpacity
+        ){
+            return;
+        }
+
+
+
+        targetMarks = svgBox.selectAll('.markSvg');
+
+        targetMarks[num].attr({
             fontSize: self.markList[num].fontSize + 'px',
             fill: self.markList[num].markC,
             opacity: self.markList[num].markOpacity
@@ -343,7 +370,7 @@ app.controller('SvgController', function () {
     };
 
 
-    /* --------- 星ここまで ------------- */
+    /* --------- 記号ここまで ------------- */
 
     /* --------- テキストここから ------------- */
 
