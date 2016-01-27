@@ -95,6 +95,12 @@ text
   background: #b8a37b
 
 
+.tabs
+  background: none
+
+.tab
+  background: #fff
+
 
 #circleStyle
   background: #bbffeb
@@ -121,14 +127,17 @@ text
     background: #b8a37b
 
 
-#canvasTab,#saveTab,#preferenceTab
+#saveTab,#preferenceTab
   a
     color: #666
     &.active
       background: #999
       color: #fff
-
-
+#canvasTab
+  a
+    &.active
+      background: #ee6e73
+      color: #fff
 //-#modalContainer
   position: fixed
   top: 0
