@@ -2,6 +2,7 @@
 
 body
   transition: all 0.4s linear 0s
+  font-family: Helvetica , "游ゴシック" , "Yu Gothic" , sans-serif
 
 li
   list-style-position: inside
@@ -11,9 +12,6 @@ select
 
 text
   user-select: none
-  -moz-user-select: none
-  -webkit-user-select: none
-  -ms-user-select: none
 
 .container
   width: 1028px
@@ -169,3 +167,7 @@ text
 
 #canvas
   display: none
+
+.thumb
+  &.active
+    display: none

@@ -475,8 +475,11 @@ app.controller('SvgController', function () {
 
         JSTarget.element = element;
 
-        run = true;
+        if (JSTarget.element.id == svgId) {
+            return;
+        }
 
+        run = true;
 
     });
 
@@ -616,7 +619,6 @@ app.controller('SvgController', function () {
                 ctx.drawImage(img, 0, 0);
                 DOMURL.revokeObjectURL(url);
                 url = JSTarget.canvas.toDataURL( [ 'image/png']);
-                console.log(url);
                 var a = document.createElement('a');
                 a.download = fileName;
                 a.href = url;

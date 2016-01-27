@@ -58,7 +58,7 @@ html(lang="ja", ng-app='SvgApp')
 												.col.s3
 													label 不透明度
 													input(type="range", max="1", min="0.1", step="0.1", ng-model="circleP.circleOpacity", ng-change="svgC.circleAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
-												.col.s3
+												.col.s3.offset-s6
 													button.button.red(type="button", ng-click="svgC.circleDelete($index); svgC.distResult(); svgC.saveLocal()") 削除
 							#rectForm.col.s12.row
 								.inner
@@ -84,7 +84,7 @@ html(lang="ja", ng-app='SvgApp')
 												.col.s3
 													label 不透明度
 													input(type="range", max="1", min="0.1", step="0.05", ng-model="rectP.rectOpacity", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
-												.col.s3
+												.col.s3.offset-s3
 													button.button.red(type="button", ng-click="svgC.rectDelete($index); svgC.distResult(); svgC.saveLocal()") 削除
 							#markForm.col.s12.row
 								.inner
@@ -113,7 +113,7 @@ html(lang="ja", ng-app='SvgApp')
 												.col.s3
 													label 不透明度
 													input(type="range", max="1", min="0.1", step="0.1", ng-model="markP.markOpacity", ng-change="svgC.markAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
-												.col.s3
+												.col.s3.offset-s9
 													button.button.red(type="button", ng-click="svgC.markDelete($index); svgC.distResult(); svgC.saveLocal()") 削除
 							#textForm.col.s12.row
 								.inner
