@@ -20,6 +20,7 @@ app.controller('SvgController', function () {
         body : document.getElementById('circleStyle'),
         saveBtn : document.getElementById('download'),
         canvas : document.getElementById("canvas"),
+        bgColorInput : document.getElementById("bgColorInput"),
         element : null
     };
 
@@ -28,6 +29,7 @@ app.controller('SvgController', function () {
     var preferenceP = function () {
         this.BC = '#ffffff';
         this.polygonOpacity = 1;
+        this.judge = false;
     };
 
 
@@ -127,8 +129,36 @@ app.controller('SvgController', function () {
             opacity: self.preferenceP.polygonOpacity
         });
 
+    };
+
+    self.preferenceBgFill = function () {
+
+        console.log(self.preferenceP.judge);
+
+        if ( !self.preferenceP.judge ) {
+
+            JSTarget.bgColorInput.setAttribute('disabled', 'disabled');
+            self.preferenceP.judge = false;
+
+
+            Snap('#' + BGId).attr({
+                fill : 'none'
+            });
+
+
+        } else {
+
+            JSTarget.bgColorInput.removeAttribute('disabled');
+            self.preferenceP.judge = true;
+
+            Snap('#' + BGId).attr({
+                fill : self.preferenceP.BC
+            });
+
+        }
 
     };
+
 
     self.preferenceReplace(); //ロード時の初期化
 
@@ -523,7 +553,6 @@ app.controller('SvgController', function () {
     document.addEventListener( 'mouseup', function () {
 
         run = false;
-        self.saveLocal();
         self.distResult();
 
     });
@@ -590,7 +619,7 @@ app.controller('SvgController', function () {
 
     /* -------------------- ファイルを保存 ---------------------- */
 
-    self.saveImage = function(fileType, fileName, content) {
+    self.saveImage = function(fileType, fileName) {
 
 
 
@@ -598,6 +627,10 @@ app.controller('SvgController', function () {
             alert('このブラウザではダウンロード機能が利用出来ません,\nご了承下さい。');
             return;
         }
+
+        var content = JSTarget.svgContainer.innerHTML;
+
+
 
         if( fileType == 'svg' ){
 
@@ -621,7 +654,7 @@ app.controller('SvgController', function () {
 
                 ctx.drawImage(img, 0, 0);
                 DOMURL.revokeObjectURL(url);
-                url = JSTarget.canvas.toDataURL( [ 'image/png']);
+                url = JSTarget.canvas.toDataURL( ['image/png'] );
                 var a = document.createElement('a');
                 a.download = fileName;
                 a.href = url;

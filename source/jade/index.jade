@@ -150,25 +150,33 @@ html(lang="ja", ng-app='SvgApp')
 							#codeArea.clearfix
 								.inner
 									.row
-										.col.s4.center-align
-											button.teal.lighten-1.button.waves-effect.waves-light(type="button", ng-click="svgC.saveImage('svg', 'my.svg', svgC.imageText)") SVGで保存
-										.col.s4.center-align
-											button.teal.lighten-1.button.waves-effect.waves-light(type="button", ng-click="svgC.saveImage('png', 'my.png', svgC.imageText);") PNGで保存
-										.col.s4
-											button.button.red(type="button", ng-click="svgC.deleteAll(); svgC.distResult()") 全てリセット
+										.col.s6.center-align
+											button.teal.lighten-1.button.waves-effect.waves-light(type="button", ng-click="svgC.saveImage('svg', 'my.svg')") SVGで保存
+										.col.s6.center-align
+											button.teal.lighten-1.button.waves-effect.waves-light(type="button", ng-click="svgC.saveImage('png', 'my.png')") PNGで保存
 									#resultArea
 							#preferenceArea.clearfix
 								.inner
 									.row
 										.col.s12
 											label 背景色
-											input(type="text", ng-model="svgC.preferenceP.BC", ng-change="svgC.preferenceReplace();")
+											input#bgColorInput(type="text", ng-model="svgC.preferenceP.BC", ng-change="svgC.preferenceReplace();")
+											.switch
+												label
+													| Off
+													input(type='checkbox', ng-model="svgC.preferenceP.judge", ng-click="svgC.preferenceBgFill()")
+													span.lever
+													|       On
+										.col.s12
 										.col.s12
 											label 背景の不透明度
 											input(type="range", max="1", min="0", step="0.04", ng-model="svgC.preferenceP.polygonOpacity", ng-change="svgC.preferenceReplace();")
 										.col.s12
 											svg#previewPreference(width="100", height="100", viewbox="0,0,100,100")
-												rect(x="0", y="0", width="100%", height="100%")
+												rect(x="0", y="0", width="100", height="100")
+										.col.s4
+											button.button.red(type="button", ng-click="svgC.deleteAll();") 全てリセット
+
 										//-.col.s12
 											label 字体
 											select
