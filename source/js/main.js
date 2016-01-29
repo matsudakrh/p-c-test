@@ -23,7 +23,7 @@ app.controller('SvgController', function () {
         element : null
     };
 
-    /* -------------------- -------------------- */
+    /* -------------------- 背景用 -------------------- */
 
     var preferenceP = function () {
         this.BC = '#ffffff';
@@ -569,7 +569,8 @@ app.controller('SvgController', function () {
 
     /* ------------- リロードしてもデータを維持出来るようにする --------------- */
 
-    self.saveLocal = function () {
+
+    window.addEventListener('unload', function () {
 
         localStorage.setItem('source', JSTarget.svgBox.innerHTML);
         localStorage.setItem('preference', JSON.stringify(self.preferenceP));
@@ -580,7 +581,9 @@ app.controller('SvgController', function () {
 
         self.imageText = JSTarget.svgContainer.innerHTML;
 
-    };
+    });
+
+
 
     /* ----------------- リロード対応ここまで -------------------- */
 
@@ -632,7 +635,5 @@ app.controller('SvgController', function () {
     };
 
     /* ------------------- ファイル保存ここまで -------------------- */
-
-
 
 });

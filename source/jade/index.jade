@@ -39,62 +39,62 @@ html(lang="ja", ng-app='SvgApp')
 										a.tab-text(href="#textForm", ng-click="svgC.changeStyle('textStyle')") テキスト
 							#circleForm.col.s12.row
 								.inner
-									button.btn.waves-effect.waves-light(type="button", ng-click="svgC.createCircle(); svgC.distResult(); svgC.saveLocal()") 丸を追加
+									button.btn.waves-effect.waves-light(type="button", ng-click="svgC.createCircle(); svgC.distResult(); ") 丸を追加
 									ol.row.col.s12
 										li.row.col.s12(ng-repeat="circleP in svgC.circleList track by $index")
 											form
 												.col.s3
 													label 半径
-													input(type="number", ng-model="circleP.circleR", ng-change="svgC.circleAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="number", ng-model="circleP.circleR", ng-change="svgC.circleAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 色
-													input(type="text", ng-model="circleP.circleFill", ng-change="svgC.circleAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="text", ng-model="circleP.circleFill", ng-change="svgC.circleAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 線の色
-													input(type="text", ng-model="circleP.circleBC", ng-change="svgC.circleAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="text", ng-model="circleP.circleBC", ng-change="svgC.circleAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 線の太さ
-													input(type="number", ng-model="circleP.circleBW", ng-change="svgC.circleAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="number", ng-model="circleP.circleBW", ng-change="svgC.circleAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 不透明度
-													input(type="range", max="1", min="0.1", step="0.1", ng-model="circleP.circleOpacity", ng-change="svgC.circleAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="range", max="1", min="0.1", step="0.1", ng-model="circleP.circleOpacity", ng-change="svgC.circleAttrReplace($index); svgC.distResult(); ")
 												.col.s3.offset-s6
-													button.button.red(type="button", ng-click="svgC.circleDelete($index); svgC.distResult(); svgC.saveLocal()") 削除
+													button.button.red(type="button", ng-click="svgC.circleDelete($index); svgC.distResult(); ") 削除
 							#rectForm.col.s12.row
 								.inner
-									button.rect-add-btn.btn.blue.darken-2.waves-effect.waves-light(type="button", ng-click="svgC.createRect(); svgC.distResult(); svgC.saveLocal()") 四角を追加
+									button.rect-add-btn.btn.blue.darken-2.waves-effect.waves-light(type="button", ng-click="svgC.createRect(); svgC.distResult(); ") 四角を追加
 									ol.row.col.s12
 										li.row.col.s12(ng-repeat="rectP in svgC.rectList track by $index")
 											form
 												.col.s3
 													label 横サイズ
-													input(type="number", ng-model="rectP.rectW", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="number", ng-model="rectP.rectW", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 縦サイズ
-													input(type="number", ng-model="rectP.rectH", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="number", ng-model="rectP.rectH", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 色
-													input(type="text", ng-model="rectP.rectFill", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="text", ng-model="rectP.rectFill", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 線の色
-													input(type="text", ng-model="rectP.rectBC", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="text", ng-model="rectP.rectBC", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 線の太さ
-													input(type="number", ng-model="rectP.rectBW", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="number", ng-model="rectP.rectBW", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 不透明度
-													input(type="range", max="1", min="0.1", step="0.05", ng-model="rectP.rectOpacity", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="range", max="1", min="0.1", step="0.05", ng-model="rectP.rectOpacity", ng-change="svgC.rectAttrReplace($index); svgC.distResult(); ")
 												.col.s3.offset-s3
-													button.button.red(type="button", ng-click="svgC.rectDelete($index); svgC.distResult(); svgC.saveLocal()") 削除
+													button.button.red(type="button", ng-click="svgC.rectDelete($index); svgC.distResult(); ") 削除
 							#markForm.col.s12.row
 								.inner
-									button.mark-add-btn.btn.yellow.darken-2.waves-effect.waves-light(type="button", ng-click="svgC.createMark(); svgC.distResult(); svgC.saveLocal()") 記号を追加
+									button.mark-add-btn.btn.yellow.darken-2.waves-effect.waves-light(type="button", ng-click="svgC.createMark(); svgC.distResult(); ") 記号を追加
 									ol.row.col.s12
 										li.row.col.s12(ng-repeat="markP in svgC.markList track by $index")
 											form
 												.col.s3
 													label 記号
-													select(ng-model="markP.markText", ng-change="svgC.markAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													select(ng-model="markP.markText", ng-change="svgC.markAttrReplace($index); svgC.distResult(); ")
 														option ★
 														option ♪
 														option ♭
@@ -106,35 +106,35 @@ html(lang="ja", ng-app='SvgApp')
 														option ♀
 												.col.s3
 													label サイズ
-													input(type="range", max="240", min="12", step="1", ng-model="markP.fontSize", ng-change="svgC.markAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="range", max="240", min="12", step="1", ng-model="markP.fontSize", ng-change="svgC.markAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 色
-													input(type="text", ng-model="markP.markC", ng-change="svgC.markAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="text", ng-model="markP.markC", ng-change="svgC.markAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 不透明度
-													input(type="range", max="1", min="0.1", step="0.1", ng-model="markP.markOpacity", ng-change="svgC.markAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="range", max="1", min="0.1", step="0.1", ng-model="markP.markOpacity", ng-change="svgC.markAttrReplace($index); svgC.distResult(); ")
 												.col.s3.offset-s9
-													button.button.red(type="button", ng-click="svgC.markDelete($index); svgC.distResult(); svgC.saveLocal()") 削除
+													button.button.red(type="button", ng-click="svgC.markDelete($index); svgC.distResult(); ") 削除
 							#textForm.col.s12.row
 								.inner
-									button.text-add-btn.btn.brown.waves-effect.waves-light(type="button", ng-click="svgC.insertText(); svgC.distResult(); svgC.saveLocal()") テキストを追加
+									button.text-add-btn.btn.brown.waves-effect.waves-light(type="button", ng-click="svgC.insertText(); svgC.distResult(); ") テキストを追加
 									ol.row.col.s12
 										li.row.col.s12(ng-repeat="textP in svgC.textList track by $index")
 											form
 												.col.s12
 													label テキスト
-													input(type="text", ng-model="textP.valText", ng-change="svgC.textAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="text", ng-model="textP.valText", ng-change="svgC.textAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 文字サイズ
-													input(type="number", ng-model="textP.fontSize", ng-change="svgC.textAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="number", ng-model="textP.fontSize", ng-change="svgC.textAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 文字色
-													input(type="text", ng-model="textP.fontC", ng-change="svgC.textAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="text", ng-model="textP.fontC", ng-change="svgC.textAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 不透明度
-													input(type="range", max="1", min="0.1", step="0.1", ng-model="textP.textOpacity", ng-change="svgC.textAttrReplace($index); svgC.distResult(); svgC.saveLocal()")
+													input(type="range", max="1", min="0.1", step="0.1", ng-model="textP.textOpacity", ng-change="svgC.textAttrReplace($index); svgC.distResult(); ")
 												.col.s3
-													button.button.red(type="button", ng-click="svgC.textDelete($index); svgC.distResult(); svgC.saveLocal()") 削除
+													button.button.red(type="button", ng-click="svgC.textDelete($index); svgC.distResult(); ") 削除
 					.col.s6
 						.row
 							.col.s12
@@ -162,10 +162,10 @@ html(lang="ja", ng-app='SvgApp')
 									.row
 										.col.s12
 											label 背景色
-											input(type="text", ng-model="svgC.preferenceP.BC", ng-change="svgC.preferenceReplace();svgC.saveLocal()")
+											input(type="text", ng-model="svgC.preferenceP.BC", ng-change="svgC.preferenceReplace();")
 										.col.s12
 											label 背景の不透明度
-											input(type="range", max="1", min="0", step="0.04", ng-model="svgC.preferenceP.polygonOpacity", ng-change="svgC.preferenceReplace();svgC.saveLocal()")
+											input(type="range", max="1", min="0", step="0.04", ng-model="svgC.preferenceP.polygonOpacity", ng-change="svgC.preferenceReplace();")
 										.col.s12
 											svg#previewPreference(width="100", height="100", viewbox="0,0,100,100")
 												rect(x="0", y="0", width="100%", height="100%")
