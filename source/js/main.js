@@ -10,7 +10,7 @@ app.controller('SvgController', function () {
 
     var centerX = svgWidth / 2;
     var centerY = svgHeight / 2;
-    var targetCircles, targetRects, targetMarks, targetTexts;
+    var targetCircles, targetRects, targetMarks, targetTexts, setMarks, setTexts;
     var resultCode;
 
     var JSTarget = {
@@ -21,8 +21,6 @@ app.controller('SvgController', function () {
         saveBtn : document.getElementById('download'),
         canvas : document.getElementById("canvas"),
         bgColorInput : document.getElementById("bgColorInput"),
-        setTexts : document.getElementsByClassName('plainText'),
-        setMarks : document.getElementsByClassName('markSvg'),
         element : null
     };
 
@@ -98,28 +96,6 @@ app.controller('SvgController', function () {
     }
 
     /* -------------- localStorage参照ここまで --------- */
-
-
-    /* ------------- svgの取得 --------------- */
-
-
-
-    self.getSvg = function () {
-
-        targetCircles = svgBox.selectAll('.circleSvg');
-        targetRects = svgBox.selectAll('.rectSvg');
-        targetMarks = svgBox.selectAll('.markSvg');
-        targetTexts = svgBox.selectAll('.plainText');
-
-        JSTarget.setTexts = document.getElementsByClassName('plainText');
-        JSTarget.setMarks = document.getElementsByClassName('markSvg');
-
-    };
-
-
-
-    /* ------------- svgの取得ここまで --------------- */
-
 
 
     /* ------------ 設定 ---------------- */
@@ -211,6 +187,7 @@ app.controller('SvgController', function () {
             return;
         }
 
+        targetCircles = svgBox.selectAll('.circleSvg');
 
         targetCircles[num].attr({
             r: self.circleList[num].circleR,
@@ -224,6 +201,7 @@ app.controller('SvgController', function () {
 
     self.circleDelete = function (num) {
         self.circleList.splice(num, 1);
+        targetCircles = svgBox.selectAll('.circleSvg');
         targetCircles[num].remove();
     };
 
@@ -288,6 +266,7 @@ app.controller('SvgController', function () {
             return;
         }
 
+        targetRects = svgBox.selectAll('.rectSvg');
 
         targetRects[num].attr({
 
@@ -304,6 +283,7 @@ app.controller('SvgController', function () {
     self.rectDelete = function (num) {
 
         self.rectList.splice(num, 1);
+        targetRects = svgBox.selectAll('.rectSvg');
         targetRects[num].remove();
 
     };
@@ -356,7 +336,8 @@ app.controller('SvgController', function () {
 
     self.markAttrReplace = function (num) {
 
-        JSTarget.setMarks[num].innerHTML = escapeHtml(self.markList[num].markText);
+        setMarks = document.getElementsByClassName('markSvg');
+        setMarks[num].innerHTML = escapeHtml(self.markList[num].markText);
 
 
 
@@ -370,7 +351,7 @@ app.controller('SvgController', function () {
         }
 
 
-
+        targetMarks = svgBox.selectAll('.markSvg');
 
         targetMarks[num].attr({
             fontSize: self.markList[num].fontSize + 'px',
@@ -382,6 +363,7 @@ app.controller('SvgController', function () {
 
     self.markDelete = function (num) {
         self.markList.splice(num, 1);
+        targetMarks = svgBox.selectAll('.markSvg');
         targetMarks[num].remove();
     };
 
@@ -420,7 +402,8 @@ app.controller('SvgController', function () {
 
     self.textAttrReplace = function (num) {
 
-        JSTarget.setTexts[num].innerHTML = escapeHtml(self.textList[num].valText);
+        setTexts = document.getElementsByClassName('plainText');
+        setTexts[num].innerHTML = escapeHtml(self.textList[num].valText);
 
 
         if(
@@ -433,6 +416,7 @@ app.controller('SvgController', function () {
         }
 
 
+        targetTexts = svgBox.selectAll('.plainText');
 
         targetTexts[num].attr({
             fontSize: self.textList[num].fontSize + 'px',
@@ -445,6 +429,7 @@ app.controller('SvgController', function () {
     self.textDelete = function (num) {
 
         self.textList.splice(num, 1);
+        targetTexts = svgBox.selectAll('.plainText');
         targetTexts[num].remove();
 
     };
