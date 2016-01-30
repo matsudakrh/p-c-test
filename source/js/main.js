@@ -98,6 +98,22 @@ app.controller('SvgController', function () {
     /* -------------- localStorage参照ここまで --------- */
 
 
+    /* ------------- svgの取得 --------------- */
+
+
+
+    self.getSvg = function () {
+        targetCircles = svgBox.selectAll('.circleSvg');
+        targetRects = svgBox.selectAll('.rectSvg');
+        targetMarks = svgBox.selectAll('.markSvg');
+        targetTexts = svgBox.selectAll('.plainText');
+    };
+
+
+
+    /* ------------- svgの取得ここまで --------------- */
+
+
 
     /* ------------ 設定 ---------------- */
 
@@ -131,33 +147,6 @@ app.controller('SvgController', function () {
 
     };
 
-    self.preferenceBgFill = function () {
-
-        console.log(self.preferenceP.judge);
-
-        if ( !self.preferenceP.judge ) {
-
-            JSTarget.bgColorInput.setAttribute('disabled', 'disabled');
-            self.preferenceP.judge = false;
-
-
-            Snap('#' + BGId).attr({
-                fill : 'none'
-            });
-
-
-        } else {
-
-            JSTarget.bgColorInput.removeAttribute('disabled');
-            self.preferenceP.judge = true;
-
-            Snap('#' + BGId).attr({
-                fill : self.preferenceP.BC
-            });
-
-        }
-
-    };
 
 
     self.preferenceReplace(); //ロード時の初期化
@@ -217,7 +206,6 @@ app.controller('SvgController', function () {
         }
 
 
-        targetCircles = svgBox.selectAll('.circleSvg');
         targetCircles[num].attr({
             r: self.circleList[num].circleR,
             fill: self.circleList[num].circleFill,
@@ -230,7 +218,6 @@ app.controller('SvgController', function () {
 
     self.circleDelete = function (num) {
         self.circleList.splice(num, 1);
-        targetCircles = svgBox.selectAll('.circleSvg');
         targetCircles[num].remove();
     };
 
@@ -296,7 +283,6 @@ app.controller('SvgController', function () {
             return;
         }
 
-        targetRects = svgBox.selectAll('.rectSvg');
 
         targetRects[num].attr({
 
@@ -313,7 +299,6 @@ app.controller('SvgController', function () {
     self.rectDelete = function (num) {
 
         self.rectList.splice(num, 1);
-        targetRects = svgBox.selectAll('.rectSvg');
         targetRects[num].remove();
 
     };
@@ -383,7 +368,6 @@ app.controller('SvgController', function () {
 
 
 
-        targetMarks = svgBox.selectAll('.markSvg');
 
         targetMarks[num].attr({
             fontSize: self.markList[num].fontSize + 'px',
@@ -395,8 +379,7 @@ app.controller('SvgController', function () {
 
     self.markDelete = function (num) {
         self.markList.splice(num, 1);
-        targetStars = svgBox.selectAll('.markSvg');
-        targetStars[num].remove();
+        targetMarks[num].remove();
     };
 
 
@@ -449,7 +432,6 @@ app.controller('SvgController', function () {
         }
 
 
-        targetTexts = svgBox.selectAll('.plainText');
 
         targetTexts[num].attr({
             fontSize: self.textList[num].fontSize + 'px',
@@ -462,7 +444,6 @@ app.controller('SvgController', function () {
     self.textDelete = function (num) {
 
         self.textList.splice(num, 1);
-        targetTexts = svgBox.selectAll('.plainText');
         targetTexts[num].remove();
 
     };

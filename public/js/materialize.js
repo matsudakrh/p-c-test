@@ -2695,7 +2695,8 @@ $(document).ready(function(){
       }
 
       if(e.pageX === undefined || e.pageX === null){//mobile
-         left = e.originalEvent.touches[0].pageX - $(this).offset().left;
+          //- TODO: エラーの原因
+         /*left = e.originalEvent.touches[0].pageX - $(this).offset().left;*/
       }
       else{ // desktop
          left = e.pageX - $(this).offset().left;
