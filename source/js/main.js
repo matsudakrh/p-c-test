@@ -10,7 +10,7 @@ app.controller('SvgController', function () {
 
     var centerX = svgWidth / 2;
     var centerY = svgHeight / 2;
-    var targetCircles, targetRects, targetMarks, targetTexts, setTexts, setMarks;
+    var targetCircles, targetRects, targetMarks, targetTexts;
     var resultCode;
 
     var JSTarget = {
@@ -21,6 +21,8 @@ app.controller('SvgController', function () {
         saveBtn : document.getElementById('download'),
         canvas : document.getElementById("canvas"),
         bgColorInput : document.getElementById("bgColorInput"),
+        setTexts : document.getElementsByClassName('plainText'),
+        setMarks : document.getElementsByClassName('markSvg'),
         element : null
     };
 
@@ -103,10 +105,15 @@ app.controller('SvgController', function () {
 
 
     self.getSvg = function () {
+
         targetCircles = svgBox.selectAll('.circleSvg');
         targetRects = svgBox.selectAll('.rectSvg');
         targetMarks = svgBox.selectAll('.markSvg');
         targetTexts = svgBox.selectAll('.plainText');
+
+        JSTarget.setTexts = document.getElementsByClassName('plainText');
+        JSTarget.setMarks = document.getElementsByClassName('markSvg');
+
     };
 
 
@@ -185,8 +192,7 @@ app.controller('SvgController', function () {
                 stroke: circleP.circleBC,
                 strokeWidth: circleP.circleBW,
                 opacity: circleP.circleOpacity,
-                class: 'circleSvg',
-                id: "circle" + (self.circleList.length - 1)
+                class: 'circleSvg'
             });
 
     };
@@ -260,8 +266,7 @@ app.controller('SvgController', function () {
                 stroke: rectP.rectBC,
                 strokeWidth: rectP.rectBW,
                 opacity: rectP.rectOpacity,
-                class: 'rectSvg',
-                id: "rect" + (self.rectList.length - 1)
+                class: 'rectSvg'
             });
 
 
@@ -332,8 +337,7 @@ app.controller('SvgController', function () {
                 fill: markP.markC,
                 opacity: markP.markOpacity,
                 textAnchor: markP.textAnchor,
-                class: 'markSvg',
-                id: 'mark' + (self.markList.length - 1)
+                class: 'markSvg'
             });
     };
 
@@ -352,8 +356,7 @@ app.controller('SvgController', function () {
 
     self.markAttrReplace = function (num) {
 
-        setMarks = document.getElementsByClassName('markSvg');
-        setMarks[num].innerHTML = escapeHtml(self.markList[num].markText);
+        JSTarget.setMarks[num].innerHTML = escapeHtml(self.markList[num].markText);
 
 
 
@@ -409,8 +412,7 @@ app.controller('SvgController', function () {
                 fontSize: textP.fontSize,
                 opacity: textP.textOpacity,
                 textAnchor: textP.textAnchor,
-                class: textP.class,
-                id: 'text' + (self.textList.length - 1)
+                class: textP.class
             });
 
     };
@@ -418,8 +420,7 @@ app.controller('SvgController', function () {
 
     self.textAttrReplace = function (num) {
 
-        setTexts = document.getElementsByClassName('plainText');
-        setTexts[num].innerHTML = escapeHtml(self.textList[num].valText);
+        JSTarget.setTexts[num].innerHTML = escapeHtml(self.textList[num].valText);
 
 
         if(
