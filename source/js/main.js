@@ -1,6 +1,8 @@
 var app = angular.module('SvgApp',[]);
 app.controller('SvgController', function () {
 
+    'use strict';
+
     var self = this;
 
     var svgWidth = 514;
@@ -10,14 +12,12 @@ app.controller('SvgController', function () {
 
     var centerX = svgWidth / 2;
     var centerY = svgHeight / 2;
-    var targetCircles, targetRects, targetMarks, targetTexts, setMarks, setTexts;
-    var resultCode;
 
     var JSTarget = {
         svgBox : document.getElementById('svgBox'),
         svgContainer : document.getElementById('svgContainer'),
         resultSpace : document.getElementById('resultArea'),
-        body : document.getElementById('circleStyle'),
+        body : document.body,
         saveBtn : document.getElementById('download'),
         canvas : document.getElementById("canvas"),
         bgColorInput : document.getElementById("bgColorInput"),
@@ -187,7 +187,7 @@ app.controller('SvgController', function () {
             return;
         }
 
-        targetCircles = svgBox.selectAll('.circleSvg');
+        var targetCircles = svgBox.selectAll('.circleSvg');
 
         targetCircles[num].attr({
             r: self.circleList[num].circleR,
@@ -201,7 +201,7 @@ app.controller('SvgController', function () {
 
     self.circleDelete = function (num) {
         self.circleList.splice(num, 1);
-        targetCircles = svgBox.selectAll('.circleSvg');
+        var targetCircles = svgBox.selectAll('.circleSvg');
         targetCircles[num].remove();
     };
 
@@ -266,7 +266,7 @@ app.controller('SvgController', function () {
             return;
         }
 
-        targetRects = svgBox.selectAll('.rectSvg');
+        var targetRects = svgBox.selectAll('.rectSvg');
 
         targetRects[num].attr({
 
@@ -283,7 +283,7 @@ app.controller('SvgController', function () {
     self.rectDelete = function (num) {
 
         self.rectList.splice(num, 1);
-        targetRects = svgBox.selectAll('.rectSvg');
+        var targetRects = svgBox.selectAll('.rectSvg');
         targetRects[num].remove();
 
     };
@@ -336,7 +336,7 @@ app.controller('SvgController', function () {
 
     self.markAttrReplace = function (num) {
 
-        setMarks = document.getElementsByClassName('markSvg');
+        var setMarks = document.getElementsByClassName('markSvg');
         setMarks[num].innerHTML = escapeHtml(self.markList[num].markText);
 
 
@@ -351,7 +351,7 @@ app.controller('SvgController', function () {
         }
 
 
-        targetMarks = svgBox.selectAll('.markSvg');
+        var targetMarks = svgBox.selectAll('.markSvg');
 
         targetMarks[num].attr({
             fontSize: self.markList[num].fontSize + 'px',
@@ -363,7 +363,7 @@ app.controller('SvgController', function () {
 
     self.markDelete = function (num) {
         self.markList.splice(num, 1);
-        targetMarks = svgBox.selectAll('.markSvg');
+        var targetMarks = svgBox.selectAll('.markSvg');
         targetMarks[num].remove();
     };
 
@@ -402,7 +402,7 @@ app.controller('SvgController', function () {
 
     self.textAttrReplace = function (num) {
 
-        setTexts = document.getElementsByClassName('plainText');
+        var setTexts = document.getElementsByClassName('plainText');
         setTexts[num].innerHTML = escapeHtml(self.textList[num].valText);
 
 
@@ -416,7 +416,7 @@ app.controller('SvgController', function () {
         }
 
 
-        targetTexts = svgBox.selectAll('.plainText');
+        var targetTexts = svgBox.selectAll('.plainText');
 
         targetTexts[num].attr({
             fontSize: self.textList[num].fontSize + 'px',
@@ -429,7 +429,7 @@ app.controller('SvgController', function () {
     self.textDelete = function (num) {
 
         self.textList.splice(num, 1);
-        targetTexts = svgBox.selectAll('.plainText');
+        var targetTexts = svgBox.selectAll('.plainText');
         targetTexts[num].remove();
 
     };
@@ -441,7 +441,7 @@ app.controller('SvgController', function () {
 
     self.distResult = function () {
 
-        resultCode = JSTarget.svgContainer.innerHTML;
+        var resultCode = JSTarget.svgContainer.innerHTML;
         JSTarget.resultSpace.innerText = resultCode;
 
     };
