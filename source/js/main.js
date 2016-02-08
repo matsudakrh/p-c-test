@@ -17,10 +17,10 @@ app.controller('SvgController', function () {
         svgBox : document.getElementById('svgBox'),
         svgContainer : document.getElementById('svgContainer'),
         resultSpace : document.getElementById('resultArea'),
-        body : document.body,
         saveBtn : document.getElementById('download'),
         canvas : document.getElementById("canvas"),
         bgColorInput : document.getElementById("bgColorInput"),
+        body : document.body,
         element : null
     };
 
@@ -29,7 +29,7 @@ app.controller('SvgController', function () {
     var preferenceP = function () {
         this.BC = '#ffffff';
         this.polygonOpacity = 1;
-        this.judge = false;
+        //this.judge = false;
     };
 
 
@@ -484,8 +484,12 @@ app.controller('SvgController', function () {
 
         if( run ){
 
-            mouse.x = event.pageX - JSTarget.svgBox.offsetLeft; //ブラウザの原点からの距離からscreenCanvasの左のズレをマイナスする
-            mouse.y = event.pageY - JSTarget.svgBox.offsetTop;
+
+            var svgBoxPoint = JSTarget.svgBox.getBoundingClientRect();
+
+            mouse.x = event.pageX - window.pageXOffset - svgBoxPoint.left; //ブラウザの原点からの距離からscreenCanvasの左のズレをマイナスする
+            mouse.y = event.pageY - window.pageYOffset - svgBoxPoint.top;
+
 
             // 丸を対象にする
             if( JSTarget.element.target.getAttribute('cx') ){
