@@ -599,9 +599,9 @@ app.controller('SvgController', function () {
             return;
         }
 
+        JSTarget.svgContainer = document.getElementById('svgContainer') ;
+
         var content = JSTarget.svgContainer.innerHTML;
-
-
 
         if( fileType == 'svg' ){
 
@@ -614,7 +614,7 @@ app.controller('SvgController', function () {
             a.href = blobURL;
             a.click();
 
-        } else if ( fileType == 'png' ) {
+        } else {
 
             var DOMURL = window.URL || window.webkitURL || window;
             var img = new Image();
@@ -625,7 +625,7 @@ app.controller('SvgController', function () {
 
                 ctx.drawImage(img, 0, 0);
                 DOMURL.revokeObjectURL(url);
-                url = JSTarget.canvas.toDataURL( ['image/png'] );
+                url = JSTarget.canvas.toDataURL( ['image/' + fileType] );
                 var a = document.createElement('a');
                 a.download = fileName;
                 a.href = url;
@@ -634,6 +634,7 @@ app.controller('SvgController', function () {
             };
 
             img.src = url;
+
         }
 
     };
