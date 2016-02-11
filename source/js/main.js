@@ -9,12 +9,16 @@ app.controller('SvgController', function () {
     var svgHeight = 514;
     var svgId = 'svgBox';
     var BGId = 'BGPolygon';
+    var circleClass = 'circleSvg';
+    var rectClass = 'rectSvg';
+    var markClass = 'markSvg';
+    var textClass = 'plainText';
 
     var centerX = svgWidth / 2;
     var centerY = svgHeight / 2;
 
     var JSTarget = {
-        svgBox : document.getElementById('svgBox'),
+        svgBox : document.getElementById(svgId),
         svgContainer : document.getElementById('svgContainer'),
         resultSpace : document.getElementById('resultArea'),
         saveBtn : document.getElementById('download'),
@@ -143,8 +147,6 @@ app.controller('SvgController', function () {
     var circleProperty = function () {
 
         this.circleR = 20;
-        this.circleCx = centerX;
-        this.circleCy = centerY;
         this.circleBC =  "#000000";
         this.circleBW = 0;
         this.circleFill = "#000000";
@@ -153,22 +155,39 @@ app.controller('SvgController', function () {
     };
 
 
+    var circlePropertyObject = {
+        circleR: 20,
+        circleBC: "#000000",
+        circleBW: 0,
+        circleFill: "#000000",
+        circleOpacity: 1
+    };
+
     self.createCircle = function () {
 
         var circleP = new circleProperty();
+
+        circleP.circleR = circlePropertyObject.circleR;
+        circleP.circleCx = circlePropertyObject.circleCx;
+        circleP.circleCy = circlePropertyObject.circleCy;
+        circleP.circleBC = circlePropertyObject.circleBC;
+        circleP.circleBW = circlePropertyObject.circleBW;
+        circleP.circleFill = circlePropertyObject.circleFill;
+        circleP.circleOpacity = circlePropertyObject.circleOpacity;
+
 
         self.circleList.push(circleP);
 
         self.circles = svgBox.circle()
             .attr({
-                r: circleP.circleR,
-                cx: circleP.circleCx,
-                cy: circleP.circleCy,
-                fill: circleP.circleFill,
-                stroke: circleP.circleBC,
-                strokeWidth: circleP.circleBW,
-                opacity: circleP.circleOpacity,
-                class: 'circleSvg'
+                r: circlePropertyObject.circleR,
+                cx: centerX,
+                cy: centerY,
+                fill: circlePropertyObject.circleFill,
+                stroke: circlePropertyObject.circleBC,
+                strokeWidth: circlePropertyObject.circleBW,
+                opacity: circlePropertyObject.circleOpacity,
+                class: circleClass
             });
 
     };
@@ -187,7 +206,7 @@ app.controller('SvgController', function () {
             return;
         }
 
-        var targetCircles = svgBox.selectAll('.circleSvg');
+        var targetCircles = svgBox.selectAll('.' + circleClass);
 
         targetCircles[num].attr({
             r: self.circleList[num].circleR,
@@ -197,11 +216,20 @@ app.controller('SvgController', function () {
             opacity: self.circleList[num].circleOpacity
         });
 
+
+        circlePropertyObject = {
+            circleR: self.circleList[num].circleR,
+            circleBC: self.circleList[num].circleBC,
+            circleBW: self.circleList[num].circleBW,
+            circleFill: self.circleList[num].circleFill,
+            circleOpacity: self.circleList[num].circleOpacity
+        };
+
     };
 
     self.circleDelete = function (num) {
         self.circleList.splice(num, 1);
-        var targetCircles = svgBox.selectAll('.circleSvg');
+        var targetCircles = svgBox.selectAll('.' + circleClass);
         targetCircles[num].remove();
     };
 
@@ -219,8 +247,6 @@ app.controller('SvgController', function () {
 
         this.rectW = 40;
         this.rectH = 40;
-        this.rectX = centerX;
-        this.rectY = centerY;
         this.rectFill = "#000000";
         this.rectBW = 0;
         this.rectBC = "#000000";
@@ -228,23 +254,41 @@ app.controller('SvgController', function () {
 
     };
 
+    var rectPropertyObject = {
+
+        rectW: 40,
+        rectH: 40,
+        rectFill: "#000000",
+        rectBw: 0,
+        rectBC: "#000000",
+        rectOpacity: 1
+
+    };
+
     self.createRect = function () {
 
         var rectP = new rectProperty();
+
+        rectP.rectW = rectPropertyObject.rectW;
+        rectP.rectH = rectPropertyObject.rectH;
+        rectP.rectFill = rectPropertyObject.rectFill;
+        rectP.rectBW = rectPropertyObject.rectBW;
+        rectP.rectBC = rectPropertyObject.rectBC;
+        rectP.rectOpacity = rectPropertyObject.rectOpacity;
 
         self.rectList.push(rectP);
 
         self.rects = svgBox.rect()
             .attr({
-                width: rectP.rectW,
-                height: rectP.rectH,
-                x: rectP.rectX,
-                y: rectP.rectY,
-                fill: rectP.rectFill,
-                stroke: rectP.rectBC,
-                strokeWidth: rectP.rectBW,
-                opacity: rectP.rectOpacity,
-                class: 'rectSvg'
+                width: rectPropertyObject.rectW,
+                height: rectPropertyObject.rectH,
+                x: centerX,
+                y: centerY,
+                fill: rectPropertyObject.rectFill,
+                stroke: rectPropertyObject.rectBC,
+                strokeWidth: rectPropertyObject.rectBW,
+                opacity: rectPropertyObject.rectOpacity,
+                class: rectClass
             });
 
 
@@ -266,7 +310,7 @@ app.controller('SvgController', function () {
             return;
         }
 
-        var targetRects = svgBox.selectAll('.rectSvg');
+        var targetRects = svgBox.selectAll('.' + rectClass);
 
         targetRects[num].attr({
 
@@ -278,12 +322,22 @@ app.controller('SvgController', function () {
             opacity: self.rectList[num].rectOpacity
         });
 
+        rectPropertyObject = {
+            rectW: self.rectList[num].rectW,
+            rectH: self.rectList[num].rectH,
+            rectFill: self.rectList[num].rectFill,
+            rectBC: self.rectList[num].rectBC,
+            rectBW: self.rectList[num].rectBW,
+            rectOpacity: self.rectList[num].rectOpacity
+
+        }
+
     };
 
     self.rectDelete = function (num) {
 
         self.rectList.splice(num, 1);
-        var targetRects = svgBox.selectAll('.rectSvg');
+        var targetRects = svgBox.selectAll('.' + rectClass);
         targetRects[num].remove();
 
     };
@@ -300,24 +354,37 @@ app.controller('SvgController', function () {
         this.fontSize = 60;
         this.markC= '#000000';
         this.markOpacity = 1;
-        this.markText = '★';
-        this.textAnchor = 'middle';
 
     };
+
+    var markPropertyObject = {
+
+        mark: '★',
+        fontSize: 60,
+        markC: '#000000',
+        markOpacity: 1
+
+    };
+
 
     self.createMark = function () {
 
         var markP = new markProperty();
 
+        markP.mark = markPropertyObject.mark;
+        markP.fontSize = markPropertyObject.fontSize;
+        markP.markC = markPropertyObject.markC;
+        markP.markOpacity = markPropertyObject.markOpacity;
+
         self.markList.push(markP);
 
-        self.marks = svgBox.text(centerX, centerY, markP.markText)
+        self.marks = svgBox.text(centerX, centerY, markP.mark)
             .attr({
                 fontSize: markP.fontSize + 'px',
                 fill: markP.markC,
                 opacity: markP.markOpacity,
-                textAnchor: markP.textAnchor,
-                class: 'markSvg'
+                textAnchor: 'middle',
+                class: markClass
             });
     };
 
@@ -336,8 +403,8 @@ app.controller('SvgController', function () {
 
     self.markAttrReplace = function (num) {
 
-        var setMarks = document.getElementsByClassName('markSvg');
-        setMarks[num].innerHTML = escapeHtml(self.markList[num].markText);
+        var setMarks = document.getElementsByClassName(markClass);
+        setMarks[num].innerHTML = escapeHtml(self.markList[num].mark);
 
 
 
@@ -351,7 +418,7 @@ app.controller('SvgController', function () {
         }
 
 
-        var targetMarks = svgBox.selectAll('.markSvg');
+        var targetMarks = svgBox.selectAll('.' + markClass);
 
         targetMarks[num].attr({
             fontSize: self.markList[num].fontSize + 'px',
@@ -359,11 +426,19 @@ app.controller('SvgController', function () {
             opacity: self.markList[num].markOpacity
         });
 
+        markPropertyObject = {
+            mark: setMarks[num].innerHTML,
+            fontSize: self.markList[num].fontSize,
+            markC: self.markList[num].markC,
+            markOpacity: self.markList[num].markOpacity
+        }
+
+
     };
 
     self.markDelete = function (num) {
         self.markList.splice(num, 1);
-        var targetMarks = svgBox.selectAll('.markSvg');
+        var targetMarks = svgBox.selectAll('.' + markClass);
         targetMarks[num].remove();
     };
 
@@ -378,13 +453,23 @@ app.controller('SvgController', function () {
         this.fontC = '#000000';
         this.fontSize = 30;
         this.textOpacity = 1;
-        this.textAnchor = 'middle';
-        this.class = 'plainText';
+    };
+
+    var textPropertyObject = {
+        valText: 'テキスト',
+        fontC: '#000000',
+        fontSize: 30,
+        textOpacity: 1
     };
 
     self.insertText = function () {
 
         var textP = new textProperty();
+
+        textP.valText = textPropertyObject.valText;
+        textP.fontC = textPropertyObject.fontC;
+        textP.fontSize = textPropertyObject.fontSize;
+        textP.textOpacity = textPropertyObject.textOpacity;
 
         self.textList.push(textP);
 
@@ -393,8 +478,8 @@ app.controller('SvgController', function () {
                 fill: textP.fontC,
                 fontSize: textP.fontSize,
                 opacity: textP.textOpacity,
-                textAnchor: textP.textAnchor,
-                class: textP.class
+                textAnchor: 'middle',
+                class: textClass
             });
 
     };
@@ -402,7 +487,7 @@ app.controller('SvgController', function () {
 
     self.textAttrReplace = function (num) {
 
-        var setTexts = document.getElementsByClassName('plainText');
+        var setTexts = document.getElementsByClassName(textClass);
         setTexts[num].innerHTML = escapeHtml(self.textList[num].valText);
 
 
@@ -416,7 +501,7 @@ app.controller('SvgController', function () {
         }
 
 
-        var targetTexts = svgBox.selectAll('.plainText');
+        var targetTexts = svgBox.selectAll('.' + textClass);
 
         targetTexts[num].attr({
             fontSize: self.textList[num].fontSize + 'px',
@@ -424,12 +509,21 @@ app.controller('SvgController', function () {
             opacity: self.textList[num].textOpacity
         });
 
+        textPropertyObject = {
+
+            valText: setTexts[num].innerHTML,
+            fontSize: self.textList[num].fontSize,
+            fontC: self.textList[num].fontC,
+            textOpacity: self.textList[num].textOpacity
+
+        }
+
     };
 
     self.textDelete = function (num) {
 
         self.textList.splice(num, 1);
-        var targetTexts = svgBox.selectAll('.plainText');
+        var targetTexts = svgBox.selectAll('.' + textClass);
         targetTexts[num].remove();
 
     };
@@ -471,6 +565,7 @@ app.controller('SvgController', function () {
     JSTarget.svgBox.addEventListener( 'mousedown', function (element) {
 
         JSTarget.element = element;
+        console.log(JSTarget.element.target.tagName);
 
         if (JSTarget.element.id == svgId) {
             return;
@@ -480,7 +575,7 @@ app.controller('SvgController', function () {
 
     });
 
-    JSTarget.svgBox.addEventListener('mousemove', function (){
+    JSTarget.svgBox.addEventListener( 'mousemove', function () {
 
         if( run ){
 
@@ -492,23 +587,23 @@ app.controller('SvgController', function () {
 
 
             // 丸を対象にする
-            if( JSTarget.element.target.getAttribute('cx') ){
+            if ( JSTarget.element.target.tagName == 'circle' ) {
                 JSTarget.element.target.setAttribute('cx', mouse.x);
                 JSTarget.element.target.setAttribute('cy', mouse.y);
                 return;
             }
 
-            // 丸以外
-            if( JSTarget.element.target.getAttribute( 'x' ) ){
+            // 四角
+            if ( JSTarget.element.target.tagName == 'rect' ) {
 
                 // 四角形の真ん中を掴めるように
-                if( JSTarget.element.target.getAttribute( 'width' ) ){
+                JSTarget.element.target.setAttribute( 'x', mouse.x - (JSTarget.element.target.getAttribute('width') / 2) );
+                JSTarget.element.target.setAttribute( 'y', mouse.y - (JSTarget.element.target.getAttribute('height') / 2) );
+                return;
 
-                    JSTarget.element.target.setAttribute( 'x', mouse.x - (JSTarget.element.target.getAttribute('width') / 2) );
-                    JSTarget.element.target.setAttribute( 'y', mouse.y - (JSTarget.element.target.getAttribute('height') / 2) );
-                    return;
+            }
 
-                }
+            if ( JSTarget.element.target.tagName == 'text' ) {
 
                 //テキストなど
                 JSTarget.element.target.setAttribute('x', mouse.x);
