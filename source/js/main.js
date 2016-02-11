@@ -17,6 +17,8 @@ app.controller('SvgController', function () {
     var centerX = svgWidth / 2;
     var centerY = svgHeight / 2;
 
+
+    // snapを通さない時など
     var JSTarget = {
         svgBox : document.getElementById(svgId),
         svgContainer : document.getElementById('svgContainer'),
@@ -28,12 +30,11 @@ app.controller('SvgController', function () {
         element : null
     };
 
-    /* -------------------- 背景用 -------------------- */
+    /* -------------------- 背景用polygon -------------------- */
 
     var preferenceP = function () {
         this.BC = '#ffffff';
         this.polygonOpacity = 1;
-        //this.judge = false;
     };
 
 
@@ -542,7 +543,7 @@ app.controller('SvgController', function () {
 
 
 
-    /* ------------ タブクリックでスタイル変更 -------------------- */
+    /* ------------ タブクリックでbodyのスタイル変更 -------------------- */
 
     self.changeStyle = function (idName) {
 
@@ -550,7 +551,7 @@ app.controller('SvgController', function () {
 
     };
 
-    /* ------------------- スタイル変更ここまで ------------------------ */
+    /* ------------------- bodyのスタイル変更ここまで ------------------------ */
 
     /* ------------------- 要素をドラッグで移動 ------------------ */
 
@@ -565,7 +566,6 @@ app.controller('SvgController', function () {
     JSTarget.svgBox.addEventListener( 'mousedown', function (element) {
 
         JSTarget.element = element;
-        console.log(JSTarget.element.target.tagName);
 
         if (JSTarget.element.id == svgId) {
             return;
@@ -603,9 +603,9 @@ app.controller('SvgController', function () {
 
             }
 
+            //　テキストなど
             if ( JSTarget.element.target.tagName == 'text' ) {
 
-                //テキストなど
                 JSTarget.element.target.setAttribute('x', mouse.x);
                 JSTarget.element.target.setAttribute('y', mouse.y);
 
@@ -619,7 +619,6 @@ app.controller('SvgController', function () {
     document.addEventListener( 'mouseup', function () {
 
         run = false;
-        self.distResult();
 
     });
 
