@@ -7,20 +7,19 @@ app.controller('SvgController', function () {
 
     var svgWidth = 514;
     var svgHeight = 514;
-    var svgId = 'svgBox';
-    var BGId = 'BGPolygon';
-    var circleClass = 'circleSvg';
-    var rectClass = 'rectSvg';
-    var markClass = 'markSvg';
-    var textClass = 'plainText';
-
     var centerX = svgWidth / 2;
     var centerY = svgHeight / 2;
+    var SVG_ID = 'svgBox';
+    var BG_ID = 'BGPolygon';
+    var CIRCLE_CLASS = 'circleSvg';
+    var RECT_CLASS = 'rectSvg';
+    var MARK_CLASS = 'markSvg';
+    var TEXT_CLASS = 'plainText';
 
 
     // snapを通さない時など
     var JSTarget = {
-        svgBox : document.getElementById(svgId),
+        svgBox : document.getElementById(SVG_ID),
         svgContainer : document.getElementById('svgContainer'),
         resultSpace : document.getElementById('resultArea'),
         saveBtn : document.getElementById('download'),
@@ -28,13 +27,6 @@ app.controller('SvgController', function () {
         bgColorInput : document.getElementById("bgColorInput"),
         body : document.body,
         element : null
-    };
-
-    /* -------------------- 背景用polygon -------------------- */
-
-    var preferenceP = function () {
-        this.BC = '#ffffff';
-        this.polygonOpacity = 1;
     };
 
 
@@ -50,7 +42,7 @@ app.controller('SvgController', function () {
 
     /* ------------------ svg領域の初期化 ------------------ */
 
-    var svgBox = Snap('#' + svgId).attr({
+    var svgBox = Snap('#' + SVG_ID).attr({
         xmlns: 'http://www.w3.org/2000/svg',
         width: svgWidth,
         height: svgHeight,
@@ -60,6 +52,12 @@ app.controller('SvgController', function () {
     /* ------------------ 初期化ここまで ------------------ */
 
 
+    /* ------------ 背景用polygon ---------- */
+
+    var preferenceP = function () {
+        this.BC = '#ffffff';
+        this.polygonOpacity = 1;
+    };
 
     /* ----------------- localStorageを参照 -------------------- */
 
@@ -74,26 +72,31 @@ app.controller('SvgController', function () {
     if ( svgData ) {
         JSTarget.svgBox.innerHTML = svgData;
     }
+
     if ( preferencePJson ) {
         self.preferenceP = JSON.parse(preferencePJson);
     } else {
         self.preferenceP = new preferenceP();
     }
+
     if ( circleListJson ) {
         self.circleList = JSON.parse(circleListJson);
     } else {
         self.circleList = [];
     }
+
     if ( rectListJson ) {
         self.rectList = JSON.parse(rectListJson);
     } else {
         self.rectList = [];
     }
+
     if ( markListJson ) {
         self.markList = JSON.parse(markListJson);
     } else {
         self.markList = [];
     }
+
     if ( textListJson ) {
         self.textList = JSON.parse(textListJson);
     } else {
@@ -103,7 +106,7 @@ app.controller('SvgController', function () {
     /* -------------- localStorage参照ここまで --------- */
 
 
-    /* ------------ 設定 ---------------- */
+    /* --------------------- 設定 --------------------------- */
 
 
 
@@ -114,7 +117,7 @@ app.controller('SvgController', function () {
         polygonTag.attr({
             fill : self.preferenceP.BC,
             opacity: self.preferenceP.polygonOpacity,
-            id : BGId
+            id : BG_ID
         });
 
         svgBox.append(polygonTag);
@@ -124,7 +127,7 @@ app.controller('SvgController', function () {
 
     self.preferenceReplace = function () {
 
-        Snap('#' + BGId).attr({
+        Snap('#' + BG_ID).attr({
             fill : self.preferenceP.BC,
             opacity: self.preferenceP.polygonOpacity
         });
@@ -188,7 +191,7 @@ app.controller('SvgController', function () {
                 stroke: circlePropertyObject.circleBC,
                 strokeWidth: circlePropertyObject.circleBW,
                 opacity: circlePropertyObject.circleOpacity,
-                class: circleClass
+                class: CIRCLE_CLASS
             });
 
     };
@@ -197,17 +200,15 @@ app.controller('SvgController', function () {
     self.circleAttrReplace = function (num) {
 
         if(
-            !self.circleList[num].circleR ||
+            typeof self.circleList[num].circleR == 'string' ||
             self.circleList[num].circleR < 1 ||
-            !self.circleList[num].circleFill ||
-            !self.circleList[num].circleBC ||
-            !self.circleList[num].circleBW < 0 ||
-            !self.circleList[num].circleOpacity
+            typeof self.circleList[num].circleBW == 'string' ||
+            self.circleList[num].circleBW < 0
         ){
             return;
         }
 
-        var targetCircles = svgBox.selectAll('.' + circleClass);
+        var targetCircles = svgBox.selectAll('.' + CIRCLE_CLASS);
 
         targetCircles[num].attr({
             r: self.circleList[num].circleR,
@@ -230,7 +231,7 @@ app.controller('SvgController', function () {
 
     self.circleDelete = function (num) {
         self.circleList.splice(num, 1);
-        var targetCircles = svgBox.selectAll('.' + circleClass);
+        var targetCircles = svgBox.selectAll('.' + CIRCLE_CLASS);
         targetCircles[num].remove();
     };
 
@@ -289,7 +290,7 @@ app.controller('SvgController', function () {
                 stroke: rectPropertyObject.rectBC,
                 strokeWidth: rectPropertyObject.rectBW,
                 opacity: rectPropertyObject.rectOpacity,
-                class: rectClass
+                class: RECT_CLASS
             });
 
 
@@ -299,19 +300,17 @@ app.controller('SvgController', function () {
 
 
         if(
-            !self.rectList[num].rectW ||
+            typeof self.rectList[num].rectW == 'string'||
             self.rectList[num].rectW < 10 ||
-            !self.rectList[num].rectH ||
+            typeof self.rectList[num].rectH == 'string' ||
             self.rectList[num].rectH < 10 ||
-            !self.rectList[num].rectFill ||
-            !self.rectList[num].rectBC ||
-            self.rectList[num].rectBW < 0 ||
-            !self.rectList[num].rectOpacity
+            typeof self.rectList[num].rectBW == 'string' ||
+            self.rectList[num].rectBW < 0
         ){
             return;
         }
 
-        var targetRects = svgBox.selectAll('.' + rectClass);
+        var targetRects = svgBox.selectAll('.' + RECT_CLASS);
 
         targetRects[num].attr({
 
@@ -338,7 +337,7 @@ app.controller('SvgController', function () {
     self.rectDelete = function (num) {
 
         self.rectList.splice(num, 1);
-        var targetRects = svgBox.selectAll('.' + rectClass);
+        var targetRects = svgBox.selectAll('.' + RECT_CLASS);
         targetRects[num].remove();
 
     };
@@ -385,7 +384,7 @@ app.controller('SvgController', function () {
                 fill: markP.markC,
                 opacity: markP.markOpacity,
                 textAnchor: 'middle',
-                class: markClass
+                class: MARK_CLASS
             });
     };
 
@@ -404,22 +403,20 @@ app.controller('SvgController', function () {
 
     self.markAttrReplace = function (num) {
 
-        var setMarks = document.getElementsByClassName(markClass);
+        var setMarks = document.getElementsByClassName(MARK_CLASS);
         setMarks[num].innerHTML = escapeHtml(self.markList[num].mark);
 
 
 
         if(
-            !self.markList[num].fontSize ||
-            self.markList[num].fontSize < 10 ||
-            !self.markList[num].markC ||
-            !self.markList[num].markOpacity
+            typeof self.markList[num].fontSize == 'string' ||
+            self.markList[num].fontSize < 10
         ){
             return;
         }
 
 
-        var targetMarks = svgBox.selectAll('.' + markClass);
+        var targetMarks = svgBox.selectAll('.' + MARK_CLASS);
 
         targetMarks[num].attr({
             fontSize: self.markList[num].fontSize + 'px',
@@ -439,7 +436,7 @@ app.controller('SvgController', function () {
 
     self.markDelete = function (num) {
         self.markList.splice(num, 1);
-        var targetMarks = svgBox.selectAll('.' + markClass);
+        var targetMarks = svgBox.selectAll('.' + MARK_CLASS);
         targetMarks[num].remove();
     };
 
@@ -480,7 +477,7 @@ app.controller('SvgController', function () {
                 fontSize: textP.fontSize,
                 opacity: textP.textOpacity,
                 textAnchor: 'middle',
-                class: textClass
+                class: TEXT_CLASS
             });
 
     };
@@ -488,21 +485,19 @@ app.controller('SvgController', function () {
 
     self.textAttrReplace = function (num) {
 
-        var setTexts = document.getElementsByClassName(textClass);
+        var setTexts = document.getElementsByClassName(TEXT_CLASS);
         setTexts[num].innerHTML = escapeHtml(self.textList[num].valText);
 
 
         if(
-            !self.textList[num].fontSize ||
-            self.textList[num].fontSize < 10 ||
-            !self.textList[num].fontC ||
-            !self.textList[num].textOpacity
+            typeof self.textList[num].fontSize == 'string' ||
+            self.textList[num].fontSize < 10
         ){
             return;
         }
 
 
-        var targetTexts = svgBox.selectAll('.' + textClass);
+        var targetTexts = svgBox.selectAll('.' + TEXT_CLASS);
 
         targetTexts[num].attr({
             fontSize: self.textList[num].fontSize + 'px',
@@ -524,7 +519,7 @@ app.controller('SvgController', function () {
     self.textDelete = function (num) {
 
         self.textList.splice(num, 1);
-        var targetTexts = svgBox.selectAll('.' + textClass);
+        var targetTexts = svgBox.selectAll('.' + TEXT_CLASS);
         targetTexts[num].remove();
 
     };
@@ -567,7 +562,7 @@ app.controller('SvgController', function () {
 
         JSTarget.element = element;
 
-        if (JSTarget.element.id == svgId) {
+        if ( JSTarget.element.id == SVG_ID ) {
             return;
         }
 
@@ -597,8 +592,8 @@ app.controller('SvgController', function () {
             if ( JSTarget.element.target.tagName == 'rect' ) {
 
                 // 四角形の真ん中を掴めるように
-                JSTarget.element.target.setAttribute( 'x', mouse.x - (JSTarget.element.target.getAttribute('width') / 2) );
-                JSTarget.element.target.setAttribute( 'y', mouse.y - (JSTarget.element.target.getAttribute('height') / 2) );
+                JSTarget.element.target.setAttribute( 'x', mouse.x - ( JSTarget.element.target.getAttribute('width') / 2) );
+                JSTarget.element.target.setAttribute( 'y', mouse.y - ( JSTarget.element.target.getAttribute('height') / 2) );
                 return;
 
             }
@@ -606,8 +601,8 @@ app.controller('SvgController', function () {
             //　テキストなど
             if ( JSTarget.element.target.tagName == 'text' ) {
 
-                JSTarget.element.target.setAttribute('x', mouse.x);
-                JSTarget.element.target.setAttribute('y', mouse.y);
+                JSTarget.element.target.setAttribute( 'x', mouse.x );
+                JSTarget.element.target.setAttribute( 'y', mouse.y );
 
             }
 
@@ -628,7 +623,7 @@ app.controller('SvgController', function () {
 
     self.deleteAll = function () {
 
-        var confirmAnswer = confirm('編集内容をリセットします。\nよろしいですか？');
+        var confirmAnswer = confirm( '編集内容をリセットします。\nよろしいですか？' );
 
         if ( confirmAnswer ) {
 
@@ -640,7 +635,7 @@ app.controller('SvgController', function () {
 
             self.preferenceP = new preferenceP();
 
-            Snap('#' + BGId).attr({
+            Snap('#' + BG_ID).attr({
                 fill : self.preferenceP.BC,
                 opacity: self.preferenceP.polygonOpacity
             });
@@ -664,14 +659,14 @@ app.controller('SvgController', function () {
     /* ------------- リロードしてもデータを維持出来るようにする --------------- */
 
 
-    window.addEventListener('unload', function () {
+    window.addEventListener( 'unload', function () {
 
-        localStorage.setItem('source', JSTarget.svgBox.innerHTML);
-        localStorage.setItem('preference', JSON.stringify(self.preferenceP));
-        localStorage.setItem('circleList', JSON.stringify(self.circleList));
-        localStorage.setItem('rectList', JSON.stringify(self.rectList));
-        localStorage.setItem('markList', JSON.stringify(self.markList));
-        localStorage.setItem('textList', JSON.stringify(self.textList));
+        localStorage.setItem( 'source', JSTarget.svgBox.innerHTML );
+        localStorage.setItem( 'preference', JSON.stringify(self.preferenceP) );
+        localStorage.setItem( 'circleList', JSON.stringify(self.circleList) );
+        localStorage.setItem( 'rectList', JSON.stringify(self.rectList) );
+        localStorage.setItem( 'markList', JSON.stringify(self.markList) );
+        localStorage.setItem( 'textList', JSON.stringify(self.textList) );
 
         self.imageText = JSTarget.svgContainer.innerHTML;
 
@@ -684,12 +679,12 @@ app.controller('SvgController', function () {
 
     /* -------------------- ファイルを保存 ---------------------- */
 
-    self.saveImage = function(fileType, fileName) {
+    self.saveImage = function( fileType, fileName ) {
 
 
 
         if ( typeof Blob == "undefined" ) {
-            alert('このブラウザではダウンロード機能が利用出来ません,\nご了承下さい。');
+            alert('このブラウザでは保存機能が利用出来ません,\nご了承下さい。');
             return;
         }
 
@@ -699,9 +694,9 @@ app.controller('SvgController', function () {
 
         if( fileType == 'svg' ){
 
-            var blob = new Blob([content]);
-            var url = window.URL || window.webkitURL;
-            var blobURL = url.createObjectURL(blob);
+            var blob = new Blob([content], {type: "image/svg+xml"});
+            var DOMURL = window.URL || window.webkitURL;
+            var blobURL = DOMURL.createObjectURL(blob);
 
             var a = document.createElement('a');
             a.download = fileName;
