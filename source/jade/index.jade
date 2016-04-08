@@ -109,7 +109,7 @@ html(lang="ja", ng-app='SvgApp')
 														option ¶
 												.col.s3
 													label サイズ
-													input(type="range", max="240", min="12", step="1", ng-model="markP.fontSize", ng-change="svgC.markAttrReplace($index); svgC.distResult(); ")
+													input(type="number", ng-model="markP.fontSize", ng-change="svgC.markAttrReplace($index); svgC.distResult(); ")
 												.col.s3
 													label 色
 													input(type="text", ng-model="markP.markC", ng-change="svgC.markAttrReplace($index); svgC.distResult(); ")
